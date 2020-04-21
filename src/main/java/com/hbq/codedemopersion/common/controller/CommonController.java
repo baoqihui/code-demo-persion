@@ -1,13 +1,13 @@
 package com.hbq.codedemopersion.common.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.hbq.teacher_plus.common.model.Result;
-import com.hbq.teacher_plus.model.Users;
-import com.hbq.teacher_plus.service.IUsersService;
-import com.hbq.teacher_plus.util.BufferImage;
-import com.hbq.teacher_plus.util.FastDFSUploadImg;
-import com.hbq.teacher_plus.util.OssUploadImage;
-import com.hbq.teacher_plus.util.ToolNote;
+import com.hbq.codedemopersion.common.model.Result;
+import com.hbq.codedemopersion.model.Users;
+import com.hbq.codedemopersion.service.IUsersService;
+import com.hbq.codedemopersion.util.BufferImage;
+import com.hbq.codedemopersion.util.FastDFSUploadImg;
+import com.hbq.codedemopersion.util.OssUploadImage;
+import com.hbq.codedemopersion.util.ToolNote;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

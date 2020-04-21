@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>教师信息管理系统</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" href="../css/matrix-style.css" />
+    <link rel="stylesheet" href="../css/matrix-media.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+
+</head>
+<body>
+<!--Header-part-->
+<div id="header">
+    <h1><a  href="#">教师信息管理系统</a></h1>
+</div>
+<!--close-Header-part-->
+
+<!--top-Header-menu-->
+<!--top-Header-menu-->
+<div id="daohang" style="cursor: pointer"><center>&nbsp;&nbsp;<i class="fa fa-dashboard "></i><span id="zhankai">展开导航</span></center></div>
+
+<div id="user-nav" class="navbar navbar-inverse">
+    <ul class="nav">
+        <li  class="dropdown" id="profile-messages" >
+            <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
+                <i class="fa fa-user"></i>&nbsp;
+                <span id="span1" class="text"></span>&nbsp;
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#"><i class="fa fa-user"></i> 个人资料</a></li>
+                <li class="divider"></li>
+                <li><a href="#"><i class="fa fa-check"></i> 我的任务</a></li>
+                <li class="divider"></li>
+                <li><a href="../login.html"><i class="fa fa-key"></i> 退出系统</a></li>
+            </ul>
+        </li>
+        <li class="dropdown" id="menu-messages">
+            <a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle">
+                <i class="fa fa-envelope"></i>&nbsp;
+                <span class="text">我的消息</span>&nbsp;
+                <span class="label label-important">4</span>&nbsp;
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="sAdd" title="" href="#"><i class="fa fa-plus"></i> 新消息</a></li>
+                <li class="divider"></li>
+                <li><a class="sInbox" title="" href="#"><i class="fa fa-envelope"></i> 收件箱</a></li>
+                <li class="divider"></li>
+                <li><a class="sOutbox" title="" href="#"><i class="fa fa-arrow-up"></i> 发件箱</a></li>
+                <li class="divider"></li>
+                <li><a class="sTrash" title="" href="#"><i class="fa fa-trash"></i> 回收站</a></li>
+            </ul>
+        </li>
+        <li class=""><a title="" href="#"><i class="fa fa-cog"></i> <span class="text">&nbsp;设置</span></a></li>
+        <li class=""><a id="tuichu" title="" href="#" ><i class="fa fa-power-off"></i> <span class="text">&nbsp;退出系统</span></a></li>
+    </ul>
+</div>
+<!--close-top-Header-menu-->
+<!--close-top-Header-menu-->
+
+<!--start-top-serch-->
+<div id="search">
+    <input type="text" placeholder="搜索..."/>
+    <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
+</div>
+<!--close-top-serch-->
+
+<!--sidebar-menu-->
+<div id="sidebar" style="OVERFLOW-Y: auto; OVERFLOW-X:hidden;">
+    <ul>
+        <li class="submenu active">
+            <a class="menu_a" link="../welcome.html"><i class="fa fa-home"></i> <span  class="menu1_name">首页</span></a>
+        </li>
+        <li class="submenu">
+            <a href="#">
+                <i class="fa fa-table"></i>
+                <span class="menu1_name">教师端-基本情况</span>
+                <span class="label label-important">3</span>
+            </a>
+            <ul>
+                <li><a class="menu_a" link="../teacher/basicInfo.html"><i class="fa fa-arrows"></i>基本信息</a></li>
+                <li><a class="menu_a" link="../teacher/education.html"><i class="fa fa-crosshairs"></i>教育信息</a></li>
+                <li><a class="menu_a" link="../teacher/work.html"><i class="fa fa-adjust"></i>工作信息</a></li>
+            </ul>
+        </li>
+        <li class="submenu">
+            <a href="#">
+                <i class="fa fa-umbrella"></i>
+                <span class="menu1_name">教师端-教学情况</span>
+                <span class="label label-important">3</span>
+            </a>
+            <ul>
+                <li><a class="menu_a" link="../teacher/teacherInfo.html"><i class="fa fa-arrows"></i>教学内容</a></li>
+                <li><a class="menu_a" link="../teacher/practical.html"><i class="fa fa-crosshairs"></i>应用型课程</a></li>
+                <li><a class="menu_a" link="../teacher/paper.html"><i class="fa fa-adjust"></i>学生论文</a></li>
+            </ul>
+        </li>
+        <li class="submenu">
+            <a href="#">
+                <i class="fa fa-tint"></i>
+                <span class="menu1_name">&nbsp;教师端-科研成果</span>
+                <span class="label label-important">3</span>
+            </a>
+            <ul>
+                <li><a class="menu_a" link="../teacher/teacherPaper.html"><i class="fa fa-arrows"></i>学术论文</a></li>
+                <li><a class="menu_a" link="../teacher/monograph.html"><i class="fa fa-crosshairs"></i>出版专著</a></li>
+                <li><a class="menu_a" link="../teacher/patent.html"><i class="fa fa-adjust"></i>专利情况</a></li>
+            </ul>
+        </li>
+
+        <li id="manage" class="submenu">
+            <a href="#">
+                <i class=" fa fa-user-times"></i>
+                <span class="menu1_name">管理端</span>
+                <span class="label label-important">3</span>
+            </a>
+            <ul>
+                <li><a class="menu_a" link="../manage/basics.html"><i class="fa fa-arrows"></i>专业教师基本情况</a></li>
+                <li><a class="menu_a" link="../manage/transaction.html"><i class="fa fa-crosshairs"></i>教师岗位异动情况</a></li>
+                <li><a class="menu_a" link="../manage/teachings.html"><i class="fa fa-adjust"></i>教师授课情况</a></li>
+            </ul>
+        </li>
+        <li id="admin" class="submenu">
+            <a href="#">
+                <i class=" fa fa-tv"></i>
+                <span class="menu1_name">权限管理</span>
+                <span class="label label-important">1</span>
+            </a>
+            <ul>
+                <li><a class="menu_a" link="../manage/users.html"><i class="fa fa-magnet"></i>权限管理</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<!--sidebar-menu-->
+
+<!--main-container-part-->
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb">
+            <a  href="#" title="回首页" class="tip-bottom"><i class="fa fa-home"></i>系统</a>
+            <a href="#" class="tip-bottom"> 首页</a>
+        </div>
+    </div>
+    <!--End-breadcrumbs-->
+    <iframe src="../welcome.html" id="iframe-main" frameborder='0' style="width:100%;"></iframe>
+</div>
+<!--end-main-container-part-->
+
+    <script src="../js/excanvas.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery.ui.custom.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/matrix.js"></script>
+<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $("#daohang").click(
+            function () {
+                var isON=$(this).attr("isON");
+                if(isON!="1"){//关闭状态
+                    $("#content ").css({'margin-left':'220px'});
+                    $("#sidebar").children("ul").css({'display': 'block'});
+                    $("#sidebar").show();
+                    $("#zhankai").text("关闭导航");
+                    isON=1;
+                }else{//开启状态
+                    $("#content ").css({'margin-left':'0px'});
+                    $("#sidebar").children("ul").css({'display': 'none'});
+                    $("#sidebar").hide();
+                    $("#zhankai").text("展开导航");
+                    isON=0;
+                }
+                $(this).attr("isON",isON);
+            }
+        )
+        var u = navigator.userAgent;
+        var username=$.cookie('username'); //args["username"];
+        var type=$.cookie('type'); //args["type"];
+        $("#span1").text("欢迎您："+username);
+        if(type=="0"){
+            $("#manage").hide();
+            $("#admin").hide();
+        }if (type=="1"){
+            $("#admin").hide();
+        }
+        console.log(1+sessionStorage.getItem("user"))
+        $("#tuichu").click(function () {
+            var r = confirm("确认退出？")
+            if (r == true) {
+                $.post("/userLogout",{},function (result) {
+                    if (result.resp_code == "0") {
+                        alert(result.resp_msg);
+                        window.location.href="/login.html";
+                    }
+                })
+            }
+        })
+    })
+</script>
+
+<script type="text/javascript">
+
+    //初始化相关元素高度
+    function init(){
+        $("body").height($(window).height()-80);
+        $("#iframe-main").height($(window).height()-90);
+        $("#sidebar").height($(window).height()-50);
+    }
+
+    $(function(){
+        init();
+        $(window).resize(function(){
+            init();
+        });
+    });
+
+    // This function is called from the pop-up menus to transfer to
+    // a different page. Ignore if the value returned is a null string:
+    function goPage (newURL) {
+        // if url is empty, skip the menu dividers and reset the menu selection to default
+        if (newURL != "") {
+            // if url is "-", it is this page -- reset the menu:
+            if (newURL == "-" ) {
+                resetMenu();
+            }
+            // else, send page to designated URL
+            else {
+                document.location.href = newURL;
+            }
+        }
+    }
+
+    // resets the menu selection upon entry to this page:
+    function resetMenu() {
+        document.gomenu.selector.selectedIndex = 2;
+    }
+
+    // uniform使用示例：
+    // $.uniform.update($(this).attr("checked", true));
+</script>
+</body>
+</html>

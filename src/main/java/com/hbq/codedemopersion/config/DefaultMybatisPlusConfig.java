@@ -1,9 +1,12 @@
 package com.hbq.codedemopersion.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import java.util.Properties;
 
 /**
  * mybatis-plus配置
@@ -28,10 +31,14 @@ public class DefaultMybatisPlusConfig {
      * 打印 sql，性能分析拦截器，不建议生产使用
      * 设置 dev test 环境开启
      */
-
-    /*@Bean
+    @Bean
     public PerformanceInterceptor performanceInterceptor() {
-        return new PerformanceInterceptor();
-    }*/
+        PerformanceInterceptor performanceInterceptor = new PerformanceInterceptor();
+        //格式化sql语句format改为true
+        Properties properties = new Properties();
+        properties.setProperty("format", "false");
+        performanceInterceptor.setProperties(properties);
+        return performanceInterceptor;
+    }
 }
 

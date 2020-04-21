@@ -2,7 +2,7 @@ package com.hbq.codedemopersion.util;
 
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
-import com.hbq.teacher_plus.config.AlipayConfig;
+import com.hbq.codedemopersion.config.AlipayConfig;
 
 import java.lang.management.ManagementFactory;
 import java.net.InetAddress;

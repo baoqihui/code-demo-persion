@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>教师信息管理系统</title><meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" href="css/matrix-login.css" />
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"  />
+
+</head>
+<body onkeydown="keydown()">
+	<!-- particles.js container -->
+
+    <div id="loginbox" >
+        <div class="control-group normal_text">
+            <h2 style="color:#B2DFEE;font-size:28px;">信息管理系统平台</h2>
+        </div>
+        <span id="span1" style="color: red;"></span>
+        <!-- ---------------------------登录--------------------------------- -->
+        <form id="loginform" class="form-vertical" action="http://themedesigner.in/demo/matrix-admin/index.html">
+            <div class="control-group">
+                <label class="control-label">登陆账号</label>
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on bg_lg"><i class="fa fa-user" style="font-size:16px;"></i></span><input id="login_tel" type="text" placeholder="手机号" />
+                    </div>
+                </div>
+            </div>
+            <div class="control-group2">
+                <label class="control-label">登陆密码</label>
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on bg_ly"><i class="fa fa-lock" style="font-size:16px;"></i></span><input id="login_password" type="password" placeholder="密码"/>
+                    </div>
+                </div>
+            </div>
+            <div  class="control-group3">
+                <br>
+                &nbsp;<img src="BufferImage" onclick="this.src='BufferImage?'+new Date().getTime()">&nbsp;&nbsp;&nbsp;看不清换一张
+                <br>
+                <br>
+                验证码： <input type="text" id="verify" class="input-medium" placeholder="验证码" style="width: 380px ;height: 30px">
+            </div>
+
+            <div class="form-actions">
+                <span class="pull-left"><a href="#" class="flip-link btn btn-info" id="to-recover">&nbsp;&nbsp;&nbsp;&nbsp;注&nbsp;&nbsp;&nbsp;册&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
+                <span class="pull-right"><input type="button" id="login"  class="btn btn-success" style="width:335px;" value=" 登&nbsp;&nbsp;&nbsp;&nbsp;录"/></span>
+
+            </div>
+            <div>
+                <a id="to_respwd" class="pull-right" href="#">忘记密码？</a>
+            </div>
+            <div class="control-group normal_text">
+                <div style="font-size:14px;color:red;">推荐电脑端访问，手机端可能存在数据显示不完整等问题</div>
+            </div>
+        </form>
+        <!-- ---------------------------注册--------------------------------- -->
+        <form id="recoverform" action="#" class="form-vertical" style="padding-top:10px;">
+            <span id="msg" style="color: red;"></span>
+            <label class="control-label">手机号</label>
+            <div class="controls">
+                <div class="main_input_box">
+                    <span class="add-on bg_lg"><i class="fa fa-user" style="font-size:16px;"></i></span><input id="regis_tel" type="text" />
+                </div>
+            </div>
+            <br>
+            <div >
+                <span  class="pull-right"><a id="btn1" class="btn btn-info" style="width:420px;">获取验证码</a></span>
+            </div>
+            <div class="control-group">
+                <label class="control-label">验证码</label>
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on bg_ly"><i class="fa fa-lock" style="font-size:16px;"></i></span><input type="text" id="regis_codes"/>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group" style="padding-top:0px;">
+                <label class="control-label">密码</label>
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on bg_ly"><i class="fa fa-lock" style="font-size:16px;"></i></span><input type="password" id="regis_password" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <span class="pull-left"><a href="#" class="flip-link btn btn-success" id="to-login">&laquo; 返回登录</a></span>
+                <span class="pull-right"><input type="button" id="regis"  class="btn btn-info" style="width:335px;" value=" 注&nbsp;&nbsp;&nbsp;&nbsp;册"/></span>
+            </div>
+            <div class="control-group normal_text">
+                <div style="font-size:14px;color:gray;">推荐使用webkit内核浏览器，如chrome等</div>
+            </div>
+        </form>
+        <!-- ---------------------------修改密码--------------------------------- -->
+        <form id="recoverform2" action="#" class="form-vertical" style="padding-top:10px;">
+            <span id="msg2" style="color: red;"></span>
+            <label class="control-label">手机号</label>
+            <div class="controls">
+                <div class="main_input_box">
+                    <span class="add-on bg_lg"><i class="fa fa-user" style="font-size:16px;"></i></span><input id="change_tel" type="text"  />
+                </div>
+            </div>
+            <br>
+            <div >
+                <span  class="pull-right"><a id="btn2" class="btn btn-info" style="width:420px;">获取验证码</a></span>
+            </div>
+            <div class="control-group">
+                <label class="control-label">验证码</label>
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on bg_ly"><i class="fa fa-lock" style="font-size:16px;"></i></span><input id="change_codes" type="text" />
+                    </div>
+                </div>
+            </div>
+            <div class="control-group" style="padding-top:0px;">
+                <label class="control-label">密码</label>
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on bg_ly"><i class="fa fa-lock" style="font-size:16px;"></i></span><input id="change_password" type="password"  />
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <span class="pull-left"><a href="#" class="flip-link btn btn-success" id="to-login2">&laquo; 返回登录</a></span>
+                <span class="pull-right"><input type="button" id="change"  class="btn btn-info" style="width:335px;" value=" 确&nbsp;认&nbsp;更&nbsp;改"/></span>
+            </div>
+            <div class="control-group normal_text">
+                <div style="font-size:14px;color:gray;">推荐使用webkit内核浏览器，如chrome等</div>
+            </div>
+
+        </form>
+        <div>
+            <span style="float: right">版权所有 © IDSE——菜鸟小回</span>
+            <a  href="http://www.beian.miit.gov.cn/" target="_blank"><img style="vertical-align: middle;height:20px;width:20px;margin-bottom:3px;margin-right:5px" src="http://idse.top/image/gongan.png">豫ICP备19033985号</a>
+        </div>
+    </div>
+    <div id="particles-js"></div>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script src="js/matrix.login.js"></script>
+
+	<!-- scripts -->
+	<script src="js/particles.js"></script>
+	<script src="js/particlesapp.js"></script>
+
+
+</body>
+</html>
