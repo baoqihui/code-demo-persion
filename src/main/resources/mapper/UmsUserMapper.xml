@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hbq.codedemopersion.mapper.UmsUserMapper">
+    <update id="updateToNull" parameterType="long">
+        UPDATE `mes`.`ums_user`
+        SET
+            `depa_code` = "",
+            `depa_name` = ""
+        WHERE
+            `id` = #{id}
+    </update>
+    <select id="findList" resultType="com.hbq.codedemopersion.model.UmsUser">
+        select * from ums_user t where t.is_del=0
+        <if test="p.depaCode != null and p.depaCode != ''">
+            and t.depa_code in
+            <foreach collection="p.umsDepas" separator="," close=")" open="(" item="item" index="index">
+                #{item}
+            </foreach>
+        </if>
+        <if test="p.userAccount != null and p.userAccount != ''">
+            and t.user_account LIKE '%${p.userAccount}%'
+        </if>
+        <if test="p.userName != null and p.userName != ''">
+            and t.user_name LIKE '%${p.userName}%'
+        </if>
+        order by t.id desc
+    </select>
+    <select id="selectPermissionOfUser" resultType="com.hbq.codedemopersion.vo.UmsPermissionVO">
+          SELECT
+            p.id id,
+            p.parent_id parentId,
+            p.icon icon,
+            p.per_name title,
+            p.per_type perType,
+            p.per_url href,
+            p.remark remark,
+            p.status status
+        FROM
+            ums_permission p
+        LEFT JOIN ums_role_per rp ON rp.per_id = p.id
+        LEFT JOIN ums_role ro ON ro.id = rp.role_id
+        LEFT JOIN ums_user_role ur ON ur.role_id = ro.id
+        WHERE
+            ro.status = 1 and
+            ur.user_id = #{userId} and p.status = 1
+        order by p.per_sort asc,p.id asc
+    </select>
+</mapper>

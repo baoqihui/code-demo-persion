@@ -1,34 +1,71 @@
 package com.hbq.codedemopersion.common.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import cn.hutool.core.convert.Convert;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
- * 分页实体类
- *
- * @author hbq
+ * 分页数据封装类
+ * Created by macro on 2019/4/19.
  */
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class PageResult<T> implements Serializable {
-    private static final long serialVersionUID = -275582248840137389L;
+public class PageResult<T> {
+    private Integer pageNum;
+    private Integer pageSize;
+    private Integer totalPage;
+    private Long total;
+    private List<T> list;
+
     /**
-     * 总数
+     * 将MyBatis Plus 分页结果转化为通用结果
      */
-    private Long count;
-    /**
-     * 是否成功：0 成功、1 失败
-     */
-    private int code;
-    /**
-     * 当前页结果集
-     */
-    private List<T> data;
+    public static <T> PageResult<T> restPage(Page<T> pageResult) {
+        PageResult<T> result = new PageResult<>();
+        result.setPageNum(Convert.toInt(pageResult.getCurrent()));
+        result.setPageSize(Convert.toInt(pageResult.getSize()));
+        result.setTotal(pageResult.getTotal());
+        result.setTotalPage(Convert.toInt(pageResult.getTotal()%pageResult.getSize()==0?pageResult.getTotal()/pageResult.getSize():pageResult.getTotal()/pageResult.getSize()+1));
+        result.setList(pageResult.getRecords());
+        return result;
+    }
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(Integer totalPage) {
+        this.totalPage = totalPage;
+    }
+
+    public List<T> getList() {
+        return list;
+    }
+
+    public void setList(List<T> list) {
+        this.list = list;
+    }
+
+    public Long getTotal() {
+        return total;
+    }
+
+    public void setTotal(Long total) {
+        this.total = total;
+    }
 }

@@ -1,11 +1,7 @@
 package com.hbq.codedemopersion.common.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hbq.codedemopersion.common.model.Result;
-import com.hbq.codedemopersion.model.Users;
-import com.hbq.codedemopersion.service.IUsersService;
 import com.hbq.codedemopersion.util.BufferImage;
-import com.hbq.codedemopersion.util.FastDFSUploadImg;
 import com.hbq.codedemopersion.util.OssUploadImage;
 import com.hbq.codedemopersion.util.ToolNote;
 import io.swagger.annotations.Api;
@@ -30,10 +26,7 @@ import java.io.OutputStream;
 public class CommonController {
     @Autowired
     private OssUploadImage ossUploadImage;
-    @Autowired
-    private FastDFSUploadImg fastDFSUploadImg;
-    @Autowired
-    private IUsersService usersService;
+
 
     /**
      * 上传图片到 oss
@@ -45,44 +38,6 @@ public class CommonController {
     public String uploadImgToOSS(MultipartFile imgFile) {
         return ossUploadImage.uploadImg(imgFile);
     }
-
-    /**
-     * 上传图片到 fastDFS
-     * @param imgFile
-     * @return
-     * @throws Exception
-     */
-    @ApiOperation(value = "上传图片到fastDFS")
-    @PostMapping(value="/uploadImgTofastDFS")
-    public String uploadImgTofastDFS(MultipartFile imgFile) throws Exception{
-        return fastDFSUploadImg.imgUpload(imgFile);
-    }
-
-    /**
-     * 发送短信
-     * @param users 用户信息
-     * @param code  用户输入验证码
-     * @param session   创建用户session
-     * @return
-     */
-    @ApiOperation(value = "用户验证码登录")
-    @PostMapping(value="/userLogin")
-    public Result userLogin(Users users, String code, HttpSession session){
-        String cht=(String)session.getAttribute("checkcode");
-
-        if(code.equalsIgnoreCase(cht)||code.equals("0000")){
-            Users user1=usersService.getOne(new QueryWrapper<Users>().eq("tel",users.getTel()).eq("password",users.getPassword()));
-            if(user1!=null){
-                session.setAttribute("user", user1);
-                return Result.succeed(user1,"登陆成功");
-            }else{
-                return Result.failed("账号或密码错误");
-            }
-        }else{
-            return Result.failed("验证码错误");
-        }
-    }
-
     /**
      * 发送短信
      * @param tel   手机号
