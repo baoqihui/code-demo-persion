@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 权限表
@@ -59,8 +60,23 @@ public class UmsPermissionServiceImpl extends ServiceImpl<UmsPermissionMapper, U
     }
 
     @Override
-    public List<Map<String, Object>> getUserPermission(String userAccount) {
-        return umsPermissionMapper.getUserPermission(userAccount);
+    public List<PermissionTreeVO> getUserPermission(String userAccount,Long parentId) {
+        List<PermissionTreeVO> permissionList = umsPermissionMapper.getUserPermission(userAccount,parentId);
+        if(permissionList!=null){
+            for (PermissionTreeVO permission : permissionList) {
+                List<PermissionTreeVO> childs = getUserPermission(userAccount, permission.getId());
+                /**
+                 * 因为同一用户可能有多个角色，角色的权限可能相同 应对子级去重
+                 * */
+                childs= childs.stream().distinct().collect(Collectors.toList());
+                permission.setChilds(childs);
+            }
+        }
+        /**
+         * 因为同一用户可能有多个角色，角色的权限可能相同 最后对父级去重
+         * */
+        permissionList= permissionList.stream().distinct().collect(Collectors.toList());
+        return permissionList;
     }
 
     @Override

@@ -22,26 +22,28 @@
             t.parent_id = #{parentId}
         order by t.id
     </select>
-    <select id="getUserPermission" resultType="map">
+    <select id="getUserPermission" resultType="com.hbq.codedemopersion.vo.PermissionTreeVO">
         SELECT
-            p.id id,
-            p.parent_id parentId,
-            p.icon icon,
-            p.per_name title,
-            p.per_type perType,
-            p.per_url href,
-            p.remark remark,
-            p.status status
+            t.id id,
+            t.per_name perName,
+            t.per_url perUrl,
+            t.per_type perType,
+            t.icon icon,
+            t.status status,
+            t.remark remark,
+            t.parent_id parentId
         FROM
-            ums_permission p
-            LEFT JOIN ums_role_per rp ON rp.per_id = p.id
-            LEFT JOIN ums_role ro ON ro.id = rp.role_id
-            LEFT JOIN ums_user_role ur ON ur.role_id = ro.id
-            LEFT JOIN ums_user uu on ur.user_id=uu.id
+            ums_permission t
+                LEFT JOIN ums_role_per rp ON rp.per_id = t.id
+                LEFT JOIN ums_role ro ON ro.id = rp.role_id
+                LEFT JOIN ums_user_role ur ON ur.role_id = ro.id
+                LEFT JOIN ums_user uu on ur.user_id=uu.id
         WHERE
-            ro.status = 1 and
-            uu.user_account = #{userAccount} and p.status = 1
-        order by p.per_sort asc,p.id asc
+            ro.status = 1
+          and t.status = 1
+          and uu.user_account = #{userAccount}
+          and t.parent_id = #{parentId}
+        order by t.per_sort asc,t.id asc
     </select>
     <select id="getUserButtonPermission" resultType="string">
         SELECT

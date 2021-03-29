@@ -13,6 +13,7 @@ import com.hbq.codedemopersion.mapper.UmsUserMapper;
 import com.hbq.codedemopersion.model.UmsUser;
 import com.hbq.codedemopersion.service.IUmsPermissionService;
 import com.hbq.codedemopersion.service.IUmsUserService;
+import com.hbq.codedemopersion.vo.PermissionTreeVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.shiro.SecurityUtils;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 用户表
@@ -103,8 +105,13 @@ public class UmsUserServiceImpl extends ServiceImpl<UmsUserMapper, UmsUser> impl
         String userAccount = MapUtil.getStr(map,"userAccount");
         UmsUser user = umsUserService.getOne(new LambdaQueryWrapper<UmsUser>().eq(UmsUser::getUserAccount, userAccount));
         Map<String, Object> userMap = BeanUtil.beanToMap(user);
-        List<Map<String, Object>> userAllPermission = umsPermissionService.getUserPermission(userAccount);
+        List<PermissionTreeVO> userAllPermission = umsPermissionService.getUserPermission(userAccount,0L);
         List<String> userButtonPermission = umsPermissionService.getUserButtonPermission(userAccount);
+        /**
+         * 因为同一用户可能有多个角色，角色的按钮权限可能相同 应去重
+         * */
+        userButtonPermission= userButtonPermission.stream().distinct().collect(Collectors.toList());
+
         userMap.put("userAllPermission",userAllPermission);
         userMap.put("userButtonPermission",userButtonPermission);
         session.setAttribute(SysConst.SESSION_USER_PERMISSION, userMap);

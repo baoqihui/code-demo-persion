@@ -27,7 +27,7 @@ public interface UmsPermissionMapper extends SuperMapper<UmsPermission> {
 
     List<PermissionTreeVO> selectPermissionTreeByParentId(@Param("parentId") Long parentId);
 
-    List<Map<String, Object>> getUserPermission(@Param("userAccount") String userAccount);
+    List<PermissionTreeVO> getUserPermission(@Param("userAccount") String userAccount,@Param("parentId") Long parentId);
 
     List<String>  getUserButtonPermission(@Param("userAccount") String userAccount);
 }

@@ -24,7 +24,7 @@ public interface IUmsPermissionService extends IService<UmsPermission> {
 
     List<PermissionTreeVO> selectPermissionTreeByParentId(Long parentId);
 
-    List<Map<String, Object>> getUserPermission(String userAccount);
+    List<PermissionTreeVO> getUserPermission(String userAccount, Long parentId);
 
     List<String> getUserButtonPermission(String userAccount);
 }
