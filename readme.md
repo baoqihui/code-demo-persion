@@ -8,5 +8,8 @@ cd wms
 npm install
 npm run serve
 ```
-+ 账号：123
-+ 密码：123
+
++ SYSTEM(所有操作权限) 账号：001 密码：001 
++ USER(无删除用户权限) 账号：002 密码：002
+
+<font color=red size=5>注：系统只对用户管理页面按钮进行权限管控，其他页面按钮默认所有人可访问</font>
