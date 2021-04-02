@@ -11,7 +11,7 @@
  Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 02/04/2021 13:26:36
+ Date: 02/04/2021 16:18:27
 */
 
 SET NAMES utf8mb4;
@@ -73,7 +73,7 @@ CREATE TABLE `ums_permission`  (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ums_permission
@@ -96,6 +96,7 @@ INSERT INTO `ums_permission` VALUES (15, '供应商', 'supplier', 'basicData/sup
 INSERT INTO `ums_permission` VALUES (16, '物料信息管理', 'mateInfo', 'basicData/mateInfo', 'el-icon-s-custom', 3, 0, 13, 1, NULL, '2021-04-01 19:29:24', '2021-04-01 19:29:39');
 INSERT INTO `ums_permission` VALUES (17, '条码规则管理', 'barcode', 'basicData/barcode', 'el-icon-s-custom', 4, 0, 13, 1, NULL, '2021-04-01 19:41:07', '2021-04-01 19:41:07');
 INSERT INTO `ums_permission` VALUES (18, 'MSD规则管理', 'msdRule', 'basicData/msdRule', 'el-icon-s-custom', 5, 0, 13, 1, NULL, '2021-04-01 19:41:59', '2021-04-02 10:11:36');
+INSERT INTO `ums_permission` VALUES (19, '用户修改', 'system:user:amend', NULL, 'el-icon-s-custom', 4, 1, 5, 1, NULL, '2021-04-02 16:11:07', '2021-04-02 16:11:07');
 
 -- ----------------------------
 -- Table structure for ums_role
@@ -115,12 +116,7 @@ CREATE TABLE `ums_role`  (
 -- Records of ums_role
 -- ----------------------------
 INSERT INTO `ums_role` VALUES (1, 'SYSTEM', 1, 1, '2020-05-31 16:57:07', '2021-04-01 19:43:19');
-INSERT INTO `ums_role` VALUES (2, '采购用户', 1, 1, '2020-09-14 11:57:47', '2020-09-15 14:04:09');
-INSERT INTO `ums_role` VALUES (3, '查询用户', 1, 1, '2020-09-15 14:04:24', '2020-09-15 14:04:24');
-INSERT INTO `ums_role` VALUES (4, 'NPI部关键用户', 1, 1, '2020-09-15 14:04:43', '2020-09-15 14:04:43');
-INSERT INTO `ums_role` VALUES (5, '产品部关键用户', 1, 1, '2020-09-15 14:04:57', '2020-11-19 19:21:43');
-INSERT INTO `ums_role` VALUES (6, '测试', 1, 1, '2020-09-21 13:32:37', '2020-09-26 17:44:05');
-INSERT INTO `ums_role` VALUES (7, '包装员', 1, 1, '2021-01-08 13:21:37', '2021-01-20 14:52:53');
+INSERT INTO `ums_role` VALUES (2, '查询用户', 1, 1, '2020-09-14 11:57:47', '2021-04-02 16:16:25');
 
 -- ----------------------------
 -- Table structure for ums_role_per
@@ -133,7 +129,7 @@ CREATE TABLE `ums_role_per`  (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 84 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户权限关联表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 111 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户权限关联表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ums_role_per
@@ -156,6 +152,13 @@ INSERT INTO `ums_role_per` VALUES (80, 15, 1, '2021-04-01 19:43:19', '2021-04-01
 INSERT INTO `ums_role_per` VALUES (81, 16, 1, '2021-04-01 19:43:19', '2021-04-01 19:43:19');
 INSERT INTO `ums_role_per` VALUES (82, 17, 1, '2021-04-01 19:43:19', '2021-04-01 19:43:19');
 INSERT INTO `ums_role_per` VALUES (83, 18, 1, '2021-04-01 19:43:19', '2021-04-01 19:43:19');
+INSERT INTO `ums_role_per` VALUES (84, 1, 6, '2021-04-02 15:59:47', '2021-04-02 15:59:47');
+INSERT INTO `ums_role_per` VALUES (85, 5, 6, '2021-04-02 15:59:47', '2021-04-02 15:59:47');
+INSERT INTO `ums_role_per` VALUES (86, 6, 6, '2021-04-02 15:59:47', '2021-04-02 15:59:47');
+INSERT INTO `ums_role_per` VALUES (107, 1, 2, '2021-04-02 16:16:25', '2021-04-02 16:16:25');
+INSERT INTO `ums_role_per` VALUES (108, 5, 2, '2021-04-02 16:16:25', '2021-04-02 16:16:25');
+INSERT INTO `ums_role_per` VALUES (109, 6, 2, '2021-04-02 16:16:25', '2021-04-02 16:16:25');
+INSERT INTO `ums_role_per` VALUES (110, 7, 2, '2021-04-02 16:16:25', '2021-04-02 16:16:25');
 
 -- ----------------------------
 -- Table structure for ums_user
@@ -174,14 +177,13 @@ CREATE TABLE `ums_user`  (
   `depa_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '振而达（天津）科技发展有限公司' COMMENT '部门名称',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `un`(`user_account`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ums_user
 -- ----------------------------
-INSERT INTO `ums_user` VALUES (1, '000001', 'hbq', '670b14728ad9902aecba32e22fa4f6bd', 0, '2020-09-17 16:56:30', '2021-04-01 14:53:18', 1, '001', '一厂');
-INSERT INTO `ums_user` VALUES (3, '123', 'sx', '202cb962ac59075b964b07152d234b70', 0, '2021-04-01 14:34:30', '2021-04-01 14:53:18', 1, 'HENA', '振而达（天津）科技发展有限公司');
-INSERT INTO `ums_user` VALUES (4, 'string', 'string', 'b45cffe084dd3d20d928bee85e7b0f21', 1, '2021-04-02 00:00:00', '2021-04-02 00:00:00', 1, 'string', '');
+INSERT INTO `ums_user` VALUES (1, '000001', 'hbq', '670b14728ad9902aecba32e22fa4f6bd', 0, '2020-09-17 16:56:30', '2021-04-02 16:02:38', 1, '001', '一厂');
+INSERT INTO `ums_user` VALUES (3, '123', 'sx', '202cb962ac59075b964b07152d234b70', 0, '2021-04-01 14:34:30', '2021-04-02 16:00:51', 1, 'HENA', '振而达（天津）科技发展有限公司');
 
 -- ----------------------------
 -- Table structure for ums_user_role
@@ -194,19 +196,17 @@ CREATE TABLE `ums_user_role`  (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户角色关联表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户角色关联表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ums_user_role
 -- ----------------------------
 INSERT INTO `ums_user_role` VALUES (8, 2, 1, '2021-04-01 14:23:45', '2021-04-01 14:23:45');
 INSERT INTO `ums_user_role` VALUES (9, 2, 2, '2021-04-01 14:23:45', '2021-04-01 14:23:45');
-INSERT INTO `ums_user_role` VALUES (10, 1, 1, '2021-04-01 14:29:48', '2021-04-01 14:29:48');
-INSERT INTO `ums_user_role` VALUES (21, 3, 1, '2021-04-01 14:40:03', '2021-04-01 14:40:03');
-INSERT INTO `ums_user_role` VALUES (22, 3, 3, '2021-04-01 14:40:03', '2021-04-01 14:40:03');
 INSERT INTO `ums_user_role` VALUES (25, 5, 1, '2021-04-01 15:09:58', '2021-04-01 15:09:58');
 INSERT INTO `ums_user_role` VALUES (28, 4, 1, '2021-04-01 15:10:41', '2021-04-01 15:10:41');
-INSERT INTO `ums_user_role` VALUES (29, 4, 0, '2021-04-02 13:25:37', '2021-04-02 13:25:37');
+INSERT INTO `ums_user_role` VALUES (29, 3, 1, '2021-04-02 16:00:51', '2021-04-02 16:00:51');
+INSERT INTO `ums_user_role` VALUES (30, 1, 2, '2021-04-02 16:02:38', '2021-04-02 16:02:38');
 
 -- ----------------------------
 -- Procedure structure for pro_test_3
