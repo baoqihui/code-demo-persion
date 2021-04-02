@@ -22,6 +22,4 @@ public interface UmsUserMapper extends SuperMapper<UmsUser> {
      * @return
      */
     Page<UmsUser> findList(Page<UmsUser> pages, @Param("p") Map<String, Object> params);
-
-    int updateToNull(Long id);
 }

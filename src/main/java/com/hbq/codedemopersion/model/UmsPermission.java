@@ -10,8 +10,8 @@ import lombok.EqualsAndHashCode;
 /**
  * 权限表
  *
- * @author hqb
- * @date 2020-09-12 16:31:21
+ * @author hbq
+ * @date 2021-03-30 16:46:48
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -24,20 +24,23 @@ public class UmsPermission extends SuperEntity {
         private String perName;
         @Excel(name = "权限路径")
         @ApiModelProperty(value = "权限路径")
-        private String perUrl;
+        private String path;
+        @Excel(name = "组件路径")
+        @ApiModelProperty(value = "组件路径")
+        private String component;
         @Excel(name = "图标")
         @ApiModelProperty(value = "图标")
         private String icon;
         @Excel(name = "排序")
         @ApiModelProperty(value = "排序")
-        private Boolean perSort;
+        private Integer perSort;
         @Excel(name = "权限类型 例如 0 菜单 1按钮")
         @ApiModelProperty(value = "权限类型 例如 0 菜单 1按钮")
-        private Boolean perType;
-        @Excel(name = "一级权限 默认 0 ")
-        @ApiModelProperty(value = "一级权限 默认 0 ")
+        private Integer perType;
+        @Excel(name = "上级权限 默认 0 ")
+        @ApiModelProperty(value = "上级权限 默认 0 ")
         private Long parentId;
-        @Excel(name = "状态 0 禁用 1 启用")
+        @Excel(name = "状态 0 禁用 1 启用",replace ={"否_false","是_true"})
         @ApiModelProperty(value = "状态 0 禁用 1 启用")
         private Boolean status;
         @Excel(name = "描述")

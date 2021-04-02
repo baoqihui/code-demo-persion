@@ -40,12 +40,6 @@ Oos:
   endpoint: oss-cn-hangzhou.aliyuncs.com
   filedir: image/
 
-#swagger配置
-Swagger:
-  description: (i-wms-接口文档) restful 风格接口
-  title: i-mes
-  version: 1.0
-
 #nginx文件上传路径
 nginxFilePath: E:\file/
 #nginx文件上传路径（下载）

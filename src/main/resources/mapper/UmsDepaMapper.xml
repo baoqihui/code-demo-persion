@@ -22,7 +22,7 @@
             LEFT JOIN ums_depa c2 ON c2.parent_code = c1.code
             LEFT JOIN ums_depa c3 ON c3.parent_code = c2.code
         WHERE
-            c1.parent_code='0' and c1.is_del =0 and c2.is_del=0
+            c1.parent_code='0'
     </select>
     <resultMap id="DepaOneVOMap" type="com.hbq.codedemopersion.vo.OneVO">
         <id column="idOne" property="id"/>
@@ -44,7 +44,7 @@
         *
         FROM
         ums_user u
-        WHERE u.is_del=0
+        WHERE 1=1
         <if test="p.depaCode != null and p.depaCode != ''">
             and u.depa_code in
             <foreach collection="p.umsDepas" separator="," close=")" open="(" item="item" index="index">
@@ -56,12 +56,12 @@
         </if>
     </select>
     <select id="getNoUserByDepaName" resultType="com.hbq.codedemopersion.model.UmsUser">
-        select * from ums_user u2 where u2.is_del=0 and u2.id not in(
+        select * from ums_user u2 where  u2.id not in(
         SELECT
         u.id
         FROM
         ums_user u
-        WHERE u.is_del=0
+        WHERE 1=1
         <if test="p.depaCode != null and p.depaCode != ''">
             and u.depa_code in
             <foreach collection="p.umsDepas" separator="," close=")" open="(" item="item" index="index">
@@ -86,7 +86,7 @@
             ums_depa c1
             LEFT JOIN ums_depa c2 ON c2.parent_code = c1.code
         WHERE
-            c1.parent_code='0' and c1.is_del =0 and c1.type='机构' and c2.type='机构'
+            c1.parent_code='0' and c1.type=1 and c2.type=1
     </select>
     <select id="getParentDepa" resultType="com.hbq.codedemopersion.model.UmsDepa">
         SELECT * FROM ums_depa d1 WHERE d1.`code`=#{depaCode}
@@ -101,7 +101,6 @@
             ums_depa t
         WHERE
             t.parent_code = #{parentCode}
-            and t.is_del=0
         order by t.id
     </select>
     <select id="selectOnlyDepaTree" resultType="com.hbq.codedemopersion.vo.ChildVO">
@@ -114,7 +113,7 @@
             ums_depa t1
         WHERE
             t1.parent_code = #{parentCode}
-            and t1.type='机构'
+            and t1.type=1
         order by t1.id
     </select>
     <resultMap id="DepaTwoVOMap" type="com.hbq.codedemopersion.vo.TwoVO">

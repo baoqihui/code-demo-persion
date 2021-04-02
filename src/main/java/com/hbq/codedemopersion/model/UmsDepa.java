@@ -1,7 +1,6 @@
 package com.hbq.codedemopersion.model;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.hbq.codedemopersion.common.model.SuperEntity;
 import io.swagger.annotations.ApiModelProperty;
@@ -31,14 +30,11 @@ public class UmsDepa extends SuperEntity {
         private String area;
         @Excel(name = "类型")
         @ApiModelProperty(value = "类型")
-        private String type;
+        private Integer type;
         @Excel(name = "备注")
         @ApiModelProperty(value = "备注")
         private String remark;
         @Excel(name = "父级部门code")
         @ApiModelProperty(value = "父级部门code")
         private String parentCode;
-        @TableLogic
-        @ApiModelProperty(value = "",hidden = true)
-        private Boolean isDel;
 }

@@ -2,22 +2,30 @@ package com.hbq.codedemopersion.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hbq.codedemopersion.common.model.Result;
 import com.hbq.codedemopersion.common.model.SysConst;
-import com.hbq.codedemopersion.common.service.RedisService;
+import com.hbq.codedemopersion.dto.UserRoleDTO;
 import com.hbq.codedemopersion.mapper.UmsUserMapper;
 import com.hbq.codedemopersion.model.UmsUser;
+import com.hbq.codedemopersion.model.UmsUserRole;
+import com.hbq.codedemopersion.service.IUmsDepaService;
 import com.hbq.codedemopersion.service.IUmsPermissionService;
+import com.hbq.codedemopersion.service.IUmsUserRoleService;
 import com.hbq.codedemopersion.service.IUmsUserService;
 import com.hbq.codedemopersion.vo.PermissionTreeVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +50,11 @@ public class UmsUserServiceImpl extends ServiceImpl<UmsUserMapper, UmsUser> impl
     @Autowired
     private IUmsUserService umsUserService;
     @Autowired
-    private RedisService redisService;
-    @Autowired
     private IUmsPermissionService umsPermissionService;
+    @Autowired
+    private IUmsUserRoleService umsUserRoleService;
+    @Autowired
+    private IUmsDepaService umsDepaService;
     /**
      * 列表
      * @param params
@@ -64,15 +74,11 @@ public class UmsUserServiceImpl extends ServiceImpl<UmsUserMapper, UmsUser> impl
     }
 
     @Override
-    public int updateToNull(Long id) {
-        return umsUserMapper.updateToNull(id);
-    }
-
-    @Override
     public Map<String, Object> getUser(String userAccount, String password) {
         UmsUser existUmsUser = umsUserService.getOne(new LambdaQueryWrapper<UmsUser>()
                 .eq(UmsUser::getUserAccount, userAccount)
                 .eq(UmsUser::getUserPwd, password)
+                .eq(UmsUser::getState,1)
         );
         return BeanUtil.beanToMap(existUmsUser);
     }
@@ -118,10 +124,63 @@ public class UmsUserServiceImpl extends ServiceImpl<UmsUserMapper, UmsUser> impl
         return Result.succeed(userMap,"成功");
     }
 
+
     @Override
     public Result logout() {
         Subject currentUser = SecurityUtils.getSubject();
         currentUser.logout();
         return Result.succeed("退出成功");
+    }
+
+    @Override
+    public Result saveOrUpdateUser(UserRoleDTO userRoleDTO) {
+        UmsUser umsUser = new UmsUser();
+        BeanUtil.copyProperties(userRoleDTO,umsUser);
+        String depaCode = umsUser.getDepaCode();
+        String depaName = umsDepaService.getDepaNameByCode(depaCode);
+        umsUser.setDepaName(depaName);
+
+        List<Long> roleIds = userRoleDTO.getRoleIds();
+
+        String userAccount = umsUser.getUserAccount();
+        String userPwd = umsUser.getUserPwd();
+        UmsUser existUmsUser = umsUserService.getOne(new QueryWrapper<UmsUser>().eq("user_account", userAccount));
+        if (existUmsUser != null) {
+            //修改角色信息
+            if (roleIds != null&&roleIds.size()>0) {
+                UmsUserRole umsUserRole = new UmsUserRole();
+                umsUserRole.setUserId(existUmsUser.getId());
+                umsUserRoleService.remove(new QueryWrapper<UmsUserRole>().eq("user_id",existUmsUser.getId()));
+                for (Long roleId : roleIds) {
+                    umsUserRole.setRoleId(roleId);
+                    umsUserRoleService.save(umsUserRole);
+                }
+            }
+            //修改用户部门信息
+            existUmsUser.setDepaCode(depaCode);
+            existUmsUser.setDepaName(depaName);
+            //修改用户信息
+            existUmsUser.setUserName(umsUser.getUserName());
+            existUmsUser.setIsExter(umsUser.getIsExter());
+            existUmsUser.setState(umsUser.getState());
+            if (StrUtil.isNotEmpty(userPwd)){
+                existUmsUser.setUserPwd(SecureUtil.md5(userPwd));
+            }
+            umsUserService.updateById(existUmsUser);
+            return Result.succeed("修改成功");
+        }else {
+            umsUser.setUserPwd(SecureUtil.md5(StrUtil.isEmpty(userPwd)? SysConst.DEFAULT_PWD:userPwd));
+            umsUserService.save(umsUser);
+            //保存角色信息
+            if (roleIds != null&&roleIds.size()>0) {
+                UmsUserRole umsUserRole = new UmsUserRole();
+                umsUserRole.setUserId(umsUser.getId());
+                for (Long roleId : roleIds) {
+                    umsUserRole.setRoleId(roleId);
+                    umsUserRoleService.save(umsUserRole);
+                }
+            }
+            return Result.succeed("保存成功");
+        }
     }
 }

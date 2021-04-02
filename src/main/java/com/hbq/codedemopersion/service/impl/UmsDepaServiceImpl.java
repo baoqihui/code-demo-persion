@@ -7,11 +7,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hbq.codedemopersion.mapper.UmsDepaMapper;
 import com.hbq.codedemopersion.model.UmsDepa;
-import com.hbq.codedemopersion.model.UmsUser;
 import com.hbq.codedemopersion.service.IUmsDepaService;
 import com.hbq.codedemopersion.vo.ChildVO;
-import com.hbq.codedemopersion.vo.OneVO;
-import com.hbq.codedemopersion.vo.TwoVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Service;
@@ -50,25 +47,6 @@ public class UmsDepaServiceImpl extends ServiceImpl<UmsDepaMapper, UmsDepa> impl
         return umsDepaMapper.findList(pages, params);
     }
 
-    @Override
-    public List<OneVO> treeList() {
-        return umsDepaMapper.treeList();
-    }
-
-    @Override
-    public List<UmsUser> getUserByDepaName(Map<String, Object> params) {
-        return umsDepaMapper.getUserByDepaName(params);
-    }
-
-    @Override
-    public List<UmsUser> getNoUserByDepaName(Map<String, Object> params) {
-        return umsDepaMapper.getNoUserByDepaName(params);
-    }
-
-    @Override
-    public List<TwoVO> treeOrgList() {
-        return umsDepaMapper.treeOrgList();
-    }
 
     @Override
     public List<String> treeUmsDepaList(List<String> childCodeList, List<UmsDepa> allList, String parentCode) {

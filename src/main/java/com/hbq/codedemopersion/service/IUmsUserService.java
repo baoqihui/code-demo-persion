@@ -3,6 +3,7 @@ package com.hbq.codedemopersion.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hbq.codedemopersion.common.model.Result;
+import com.hbq.codedemopersion.dto.UserRoleDTO;
 import com.hbq.codedemopersion.model.UmsUser;
 
 import java.util.Map;
@@ -21,8 +22,6 @@ public interface IUmsUserService extends IService<UmsUser> {
      */
     Page<UmsUser> findList(Map<String, Object> params);
 
-    int updateToNull(Long id);
-
     Map<String, Object> getUser(String username, String password);
 
     Result authLogin(Map<String, Object> map);
@@ -30,5 +29,7 @@ public interface IUmsUserService extends IService<UmsUser> {
     Result getInfo();
 
     Result logout();
+
+    Result saveOrUpdateUser(UserRoleDTO userRoleDTO);
 }
 

@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * 用户权限关联表
  *
- * @author hqb
+ * @author hbq
  * @date 2020-09-12 16:31:21
  */
 @Slf4j

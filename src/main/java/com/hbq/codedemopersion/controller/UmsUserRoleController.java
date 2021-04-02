@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * 用户角色关联表
  *
- * @author hqb
+ * @author hbq
  * @date 2020-09-12 16:31:21
  */
 @Slf4j
@@ -67,27 +67,4 @@ public class UmsUserRoleController {
         umsUserRoleService.removeById(id);
         return Result.succeed("删除成功");
     }
-
-
-   /* @ApiOperation(value = "未分配-》已分配")
-    @PostMapping("/umsUserRole/saveUserRole")
-    public Result saveUserRole(@RequestBody Map<String,List<UmsUserRole>> map) {
-        List<UmsUserRole> userRoles = map.get("userRoles");
-        umsUserRoleService.saveOrUpdateBatch(userRoles);
-        return Result.succeed("保存成功");
-    }
-    @ApiOperation(value = "已分配-》未分配")
-    @PostMapping("/umsUserRole/remove")
-    public Result editUserRole(@RequestBody Map<String,List<UmsUserRole>> map) {
-        List<UmsUserRole> userRoles = map.get("userRoles");
-        for (UmsUserRole userRole : userRoles) {
-            Long userId = userRole.getUserId();
-            Long roleId = userRole.getRoleId();
-            umsUserRoleService.remove(new QueryWrapper<UmsUserRole>()
-                    .eq("user_id",userId)
-                    .eq("role_id",roleId)
-            );
-        }
-        return Result.succeed("移除成功");
-    }*/
 }

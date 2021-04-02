@@ -1,7 +1,7 @@
 package com.hbq.codedemopersion.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.map.MapUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -11,14 +11,15 @@ import com.hbq.codedemopersion.mapper.UmsRoleMapper;
 import com.hbq.codedemopersion.mapper.UmsRolePerMapper;
 import com.hbq.codedemopersion.model.UmsRole;
 import com.hbq.codedemopersion.model.UmsRolePer;
-import com.hbq.codedemopersion.model.UmsUser;
+import com.hbq.codedemopersion.model.UmsUserRole;
 import com.hbq.codedemopersion.service.IUmsRoleService;
+import com.hbq.codedemopersion.service.IUmsUserRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MapUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +36,8 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleMapper, UmsRole> impl
     private UmsRoleMapper umsRoleMapper;
     @Resource
     private UmsRolePerMapper umsRolePerMapper;
+    @Autowired
+    private IUmsUserRoleService umsUserRoleService;
     /**
      * 列表
      * @param params
@@ -86,18 +89,19 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleMapper, UmsRole> impl
     }
 
     @Override
-    public Result getUserByRoleId(Map<String, Object> map) {
-        Long roleId = MapUtil.getLong(map, "roleId");
-        List<UmsUser> roleList=umsRoleMapper.getUserByRoleId(roleId);
-        List<UmsUser> noRoleList=umsRoleMapper.getNoRoleUserByRoleId(roleId);
-        Map<String, Object> objectMap = new HashMap<>();
-        objectMap.put("roleList",roleList);
-        objectMap.put("noRoleList",noRoleList);
-        return Result.succeed(objectMap,"查询成功");
+    public List<UmsRole>  getRoleListByUid(Long id) {
+        return umsRoleMapper.getRoleListByUid(id);
     }
 
     @Override
-    public List<UmsRole>  getRoleListByUid(Long id) {
-        return umsRoleMapper.getRoleListByUid(id);
+    public Result delete(Long id) {
+        List<UmsUserRole> userRoles = umsUserRoleService.list(new LambdaQueryWrapper<UmsUserRole>()
+                .eq(UmsUserRole::getRoleId, id)
+        );
+        if (!userRoles.isEmpty()) {
+            return Result.failed("请先解绑该角色绑定的用户");
+        }
+        removeById(id);
+        return Result.succeed("删除成功");
     }
 }

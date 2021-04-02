@@ -1,3 +1,11 @@
+#swagger配置
+Swagger:
+  description: (code-demo-persion-接口文档) restful 风格接口
+  title: code-demo-persion
+  version: 1.0
+
+#设置生效环境配置
 spring:
   profiles:
     active: "@profileActive@"
+

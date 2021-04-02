@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 /**
  * 角色表
  *
- * @author hqb
+ * @author hbq
  * @date 2020-09-12 16:38:04
  */
 @Slf4j
@@ -58,6 +58,8 @@ public class UmsRoleController {
     }
 
     /**
+     *
+     *
      * 查询
      */
     @ApiOperation(value = "查询")
@@ -83,8 +85,7 @@ public class UmsRoleController {
     @ApiOperation(value = "删除")
     @PostMapping("/umsRole/del/{id}")
     public Result delete(@PathVariable Long id) {
-        umsRoleService.removeById(id);
-        return Result.succeed("删除成功");
+        return umsRoleService.delete(id);
     }
 
     @ApiOperation(value = "添加角色和权限")
@@ -98,12 +99,5 @@ public class UmsRoleController {
     public Result editRole(@RequestBody RoleInsertDTO roleInsertDTO){
         return umsRoleService.editRole(roleInsertDTO);
     }
-
-    @ApiOperation(value = "根据角色查询用户列表")
-    @PostMapping("/umsRole/getUserByRoleId")
-    public Result getUserByRoleId(@RequestBody Map<String,Object> map){
-        return umsRoleService.getUserByRoleId(map);
-    }
-
 
 }

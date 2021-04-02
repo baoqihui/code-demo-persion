@@ -27,8 +27,8 @@ public interface IUmsRoleService extends IService<UmsRole> {
 
     Result editRole(RoleInsertDTO roleInsertDTO);
 
-    Result getUserByRoleId(Map<String, Object> map);
-
     List<UmsRole>  getRoleListByUid(Long id);
+
+    Result delete(Long id);
 }
 

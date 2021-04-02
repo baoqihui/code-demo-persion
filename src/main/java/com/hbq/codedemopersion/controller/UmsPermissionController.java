@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * 权限表
  *
- * @author hqb
+ * @author hbq
  * @date 2020-09-12 16:31:21
  */
 @Slf4j
@@ -66,8 +66,7 @@ public class UmsPermissionController {
     @ApiOperation(value = "删除")
     @PostMapping("/umsPermission/del/{id}")
     public Result delete(@PathVariable Long id) {
-        umsPermissionService.removeById(id);
-        return Result.succeed("删除成功");
+        return umsPermissionService.delete(id);
     }
 
     /**

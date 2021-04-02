@@ -17,7 +17,9 @@ public class PermissionTreeVO {
     /** 权限名 */
     private String perName;
     /** 权限路径 */
-    private String perUrl;
+    private String path;
+    /** 组件路径 */
+    private String component;
     /** 权限类型 例如 0 菜单 1按钮 */
     private Integer perType;
     /** 父级权限 默认 0  */
@@ -28,6 +30,8 @@ public class PermissionTreeVO {
     private Boolean status;
     /** 描述 */
     private String remark;
+    /** 排序 */
+    private Integer perSort;
     /** 子权限 */
-    private List<PermissionTreeVO> childs;
+    private List<PermissionTreeVO> children;
 }

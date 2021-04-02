@@ -2,6 +2,7 @@ package com.hbq.codedemopersion.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hbq.codedemopersion.common.model.Result;
 import com.hbq.codedemopersion.model.UmsPermission;
 import com.hbq.codedemopersion.vo.PermissionTreeVO;
 
@@ -27,5 +28,7 @@ public interface IUmsPermissionService extends IService<UmsPermission> {
     List<PermissionTreeVO> getUserPermission(String userAccount, Long parentId);
 
     List<String> getUserButtonPermission(String userAccount);
+
+    Result delete(Long id);
 }
 

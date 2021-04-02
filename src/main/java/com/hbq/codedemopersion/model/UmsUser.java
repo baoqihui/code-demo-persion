@@ -1,7 +1,6 @@
 package com.hbq.codedemopersion.model;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.hbq.codedemopersion.common.model.SuperEntity;
 import io.swagger.annotations.ApiModelProperty;
@@ -32,9 +31,8 @@ public class UmsUser extends SuperEntity {
         @Excel(name = "是否外部员工")
         @ApiModelProperty(value = "是否外部员工")
         private Boolean isExter;
-        @TableLogic
-        @ApiModelProperty(value = "状态 0 禁用 1 启用",hidden = true)
-        private Boolean isDel;
+        @ApiModelProperty(value = "状态 0 禁用 1 启用")
+        private Boolean state;
         @Excel(name = "部门代码")
         @ApiModelProperty(value = "部门代码")
         private String depaCode;
