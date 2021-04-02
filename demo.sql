@@ -171,7 +171,7 @@ CREATE TABLE `ums_user`  (
 -- Records of ums_user
 -- ----------------------------
 INSERT INTO `ums_user` VALUES (1, '001', '系统管理员', 'dc5c7986daef50c1e02ab09b442ee34f', 0, '2021-04-02 17:53:50', '2021-04-02 18:01:03', 1, 'HENA', '振而达（天津）科技发展有限公司');
-INSERT INTO `ums_user` VALUES (2, '002', 'USER', '93dd4de5cddba2c733c65f233097f05a', 0, '2021-04-02 18:01:42', '2021-04-02 18:01:42', 1, 'HENA', '振而达（天津）科技发展有限公司');
+INSERT INTO `ums_user` VALUES (2, '002', '用户', '93dd4de5cddba2c733c65f233097f05a', 0, '2021-04-02 18:01:42', '2021-04-02 18:01:42', 1, 'HENA', '振而达（天津）科技发展有限公司');
 
 -- ----------------------------
 -- Table structure for ums_user_role
