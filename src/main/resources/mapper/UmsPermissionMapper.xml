@@ -45,7 +45,7 @@
             <if test="p.remark != null and p.remark != ''">
                 and t.remark LIKE '%${p.remark}%'
             </if>
-            order by t.id desc
+            order by t.per_sort asc,t.id asc
     </select>
     <select id="selectPermissionTreeByParentId" resultType="com.hbq.codedemopersion.vo.PermissionTreeVO" parameterType="long">
         SELECT DISTINCT
