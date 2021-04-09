@@ -2,8 +2,10 @@ package com.hbq.codedemopersion.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hbq.codedemopersion.common.model.Result;
 import com.hbq.codedemopersion.model.UmsDepa;
 import com.hbq.codedemopersion.vo.ChildVO;
+import com.hbq.codedemopersion.vo.DepaTreeVO;
 
 import java.util.List;
 import java.util.Map;
@@ -31,5 +33,16 @@ public interface IUmsDepaService extends IService<UmsDepa> {
     List<String> getAllDepaBycode(List<String> allDepaName,String depaCode);
 
     List<ChildVO> selectAllTree(String parentCode);
+
+    List<DepaTreeVO> selectTreeListByParentCode(String parentCode);
+
+    Result selectListByCode(String parentCode);
+
+    Result selectLeafListByCode(String code);
+
+    UmsDepa selectRootDepaByCode(String code);
+
+    List<UmsDepa> selectRootListByCode(List<UmsDepa> umsDepas,String code);
+
 }
 

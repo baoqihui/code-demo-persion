@@ -4,6 +4,7 @@ import com.hbq.codedemopersion.common.mapper.SuperMapper;
 import com.hbq.codedemopersion.model.UmsDepa;
 import com.hbq.codedemopersion.model.UmsUser;
 import com.hbq.codedemopersion.vo.ChildVO;
+import com.hbq.codedemopersion.vo.DepaTreeVO;
 import com.hbq.codedemopersion.vo.OneVO;
 import com.hbq.codedemopersion.vo.TwoVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -41,4 +42,6 @@ public interface UmsDepaMapper extends SuperMapper<UmsDepa> {
     List<ChildVO> selectAllTree(@Param("parentCode") String parentCode);
 
     List<ChildVO> selectOnlyDepaTree(String s);
+
+    List<DepaTreeVO> selectTreeListByParentCode(@Param("parentCode") String parentCode);
 }

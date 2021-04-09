@@ -1,17 +1,20 @@
 package com.hbq.codedemopersion.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hbq.codedemopersion.common.model.PageResult;
 import com.hbq.codedemopersion.common.model.Result;
 import com.hbq.codedemopersion.model.UmsDepa;
 import com.hbq.codedemopersion.service.IUmsDepaService;
 import com.hbq.codedemopersion.vo.ChildVO;
+import com.hbq.codedemopersion.vo.DepaTreeVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -79,4 +82,58 @@ public class UmsDepaController {
         List<ChildVO> childVOS = umsDepaService.selectAllTree(parentCode);
         return Result.succeed(childVOS, "查询成功");
     }
+
+    /**********************************************
+     ******* 下方接口只做为递归调用示例，不参与项目 ******
+     ******************************************** */
+
+
+    /**
+     * 通过parentCode查询树状列表(参数为0或空默认查全部)
+     */
+    @ApiOperation(value = "通过parentCode查询树状列表(参数为0或空默认查全部)")
+    @PostMapping("/umsDepa/selectAllTreeList/{parentCode}")
+    public Result selectTreeListByParentCode(@PathVariable String parentCode) {
+        List<DepaTreeVO> depaTreeVOS = umsDepaService.selectTreeListByParentCode(StrUtil.isBlank(parentCode)?"0":parentCode);
+        return Result.succeed(depaTreeVOS, "查询成功");
+    }
+
+    /**
+     * 通过某代码查询其下级列表
+     */
+    @ApiOperation(value = "通过某代码查询其下级列表")
+    @PostMapping("/umsDepa/selectListByCode/{code}")
+    public Result selectListByCode(@PathVariable String code) {
+        return umsDepaService.selectListByCode(code);
+    }
+
+    /**
+     * 通过某代码查询其“叶子”子级列表（即最底层子级）
+     */
+    @ApiOperation(value = "通过某代码查询其“叶子”子级列表（即最底层子级）")
+    @PostMapping("/umsDepa/selectLeafListByCode/{code}")
+    public Result selectLeafListByCode(@PathVariable String code) {
+        return umsDepaService.selectLeafListByCode(code);
+    }
+
+    /**
+     * 通过某代码查询其根级（即最高层父级）
+     */
+    @ApiOperation(value = "通过某代码查询其根级（即最高层父级）")
+    @PostMapping("/umsDepa/selectRootDepaByCode/{code}")
+    public Result selectRootDepaByCode(@PathVariable String code) {
+        UmsDepa umsDepa = umsDepaService.selectRootDepaByCode(code);
+        return Result.succeed(umsDepa,"查询成功");
+    }
+
+    /**
+     * 通过某代码查询其所有根级列表
+     */
+    @ApiOperation(value = "通过某代码查询其所有根级列表")
+    @PostMapping("/umsDepa/selectRootListByCode/{code}")
+    public Result selectRootListByCode(@PathVariable String code) {
+        List<UmsDepa> umsDepas = umsDepaService.selectRootListByCode(new ArrayList<>(),code);
+        return Result.succeed(umsDepas,"查询成功");
+    }
+
 }

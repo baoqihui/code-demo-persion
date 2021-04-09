@@ -116,6 +116,7 @@
             and t1.type=1
         order by t1.id
     </select>
+
     <resultMap id="DepaTwoVOMap" type="com.hbq.codedemopersion.vo.TwoVO">
         <id column="idTwo" property="id"/>
         <result column="nameTwo" property="name"/>
@@ -126,5 +127,7 @@
             <result column="codeThr" property="code"/>
         </collection>
     </resultMap>
-
+    <select id="selectTreeListByParentCode" resultType="com.hbq.codedemopersion.vo.DepaTreeVO">
+        select * from ums_depa where parent_code=#{parentCode}
+    </select>
 </mapper>
