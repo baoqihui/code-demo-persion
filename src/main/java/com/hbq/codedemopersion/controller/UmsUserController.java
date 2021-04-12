@@ -2,14 +2,17 @@ package com.hbq.codedemopersion.controller;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hbq.codedemopersion.common.model.PageResult;
 import com.hbq.codedemopersion.common.model.Result;
 import com.hbq.codedemopersion.dto.UserRoleDTO;
 import com.hbq.codedemopersion.model.UmsRole;
 import com.hbq.codedemopersion.model.UmsUser;
+import com.hbq.codedemopersion.model.UmsUserRole;
 import com.hbq.codedemopersion.service.IUmsDepaService;
 import com.hbq.codedemopersion.service.IUmsRoleService;
+import com.hbq.codedemopersion.service.IUmsUserRoleService;
 import com.hbq.codedemopersion.service.IUmsUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,7 +44,8 @@ public class UmsUserController {
     private IUmsDepaService umsDepaService;
     @Autowired
     private IUmsRoleService umsRoleService;
-
+    @Autowired
+    private IUmsUserRoleService umsUserRoleService;
 
     /**
      * 登录
@@ -119,6 +123,9 @@ public class UmsUserController {
     public Result delete(@RequestBody Map<String,List<Long>> map) {
         List<Long> ids = map.get("ids");
         umsUserService.removeByIds(ids);
+        for (Long id : ids) {
+            umsUserRoleService.remove(new LambdaQueryWrapper<UmsUserRole>().eq(UmsUserRole::getUserId,id));
+        }
         return Result.succeed("删除成功");
     }
     /**

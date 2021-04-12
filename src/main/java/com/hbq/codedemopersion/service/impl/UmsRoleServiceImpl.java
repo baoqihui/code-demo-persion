@@ -102,6 +102,7 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleMapper, UmsRole> impl
             return Result.failed("请先解绑该角色绑定的用户");
         }
         removeById(id);
+        umsRolePerMapper.delete(new LambdaQueryWrapper<UmsRolePer>().eq(UmsRolePer::getRoleId,id));
         return Result.succeed("删除成功");
     }
 }
