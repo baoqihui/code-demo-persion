@@ -1,8 +1,8 @@
 <configuration scan="true" scanPeriod="10 seconds">
     <contextName>logback</contextName>
-    
+
     <!--配置日志文件输出路径，下面用${path}占位使用}-->
-    <property name="path" value="C:/logs/i-mes" />
+    <property name="path" value="C:/logs/demo" />
 
     <!--0. 日志格式和颜色渲染 -->
     <!-- 彩色日志依赖的渲染类 -->
@@ -46,7 +46,15 @@
         <!--滚动输出策略-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--路径-->
-            <fileNamePattern>${path}/info/info.%d.log</fileNamePattern>
+            <fileNamePattern>${path}/info/info-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <!-- 文件大小分割，超过配置大小就建当天新的日志文件 -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- 保存7天 -->
+            <MaxHistory>7</MaxHistory>
+            <!-- 总日志大小 -->
+            <totalSizeCap>10GB</totalSizeCap>
         </rollingPolicy>
     </appender>
 
@@ -68,7 +76,15 @@
         <!--滚动输出策略-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--路径-->
-            <fileNamePattern>${path}/warn/warn.%d.log</fileNamePattern>
+            <fileNamePattern>${path}/warn/warn-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <!-- 文件大小分割，超过配置大小就建当天新的日志文件 -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- 保存30天 -->
+            <MaxHistory>30</MaxHistory>
+            <!-- 总日志大小 -->
+            <totalSizeCap>10GB</totalSizeCap>
         </rollingPolicy>
     </appender>
 
@@ -86,7 +102,15 @@
         <!--滚动输出策略-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--路径-->
-            <fileNamePattern>${path}/error/error.%d.log</fileNamePattern>
+            <fileNamePattern>${path}/error/error-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <!-- 文件大小分割，超过配置大小就建当天新的日志文件 -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- 保存30天 -->
+            <MaxHistory>30</MaxHistory>
+            <!-- 总日志大小 -->
+            <totalSizeCap>10GB</totalSizeCap>
         </rollingPolicy>
     </appender>
 
@@ -100,7 +124,6 @@
     <!--dev环境输出到文件-->
     <springProfile name="dev">
         <root level="info">
-            <appender-ref ref="consoleLog"/>
             <appender-ref ref="fileInfoLog"/>
             <appender-ref ref="fileWarnLog"/>
             <appender-ref ref="fileErrorLog"/>
@@ -110,7 +133,6 @@
     <!--pro环境输出到文件-->
     <springProfile name="pro">
         <root level="info">
-            <appender-ref ref="consoleLog"/>
             <appender-ref ref="fileInfoLog"/>
             <appender-ref ref="fileWarnLog"/>
             <appender-ref ref="fileErrorLog"/>
