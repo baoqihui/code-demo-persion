@@ -1,0 +1,706 @@
+{
+	"info": {
+		"_postman_id": "c4114491-d261-4376-a7d5-b9bb6f7e1aea",
+		"name": "demo-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "系统设置",
+			"item": [
+				{
+					"name": "用户",
+					"item": [
+						{
+							"name": "登录",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userAccount\": \"001\",\r\n    \"userPwd\": \"001\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/auth",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"auth"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "退出",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/logout",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "获取当前登录用户信息",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/getInfo",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"getInfo"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查询用户列表",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/umsUser/list",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"umsUser",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "通过id查询详情",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/umsUser/sel/1",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"umsUser",
+										"sel",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "新增或修改账号密码",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"userAccount\": \"000001\",\r\n\t\"userPwd\": \"000000\",\r\n\t\"userName\": \"回宝旗\",\r\n\t\"depaCode\": \"001\",\r\n\t\"isExter\": false,\r\n\t\"roleIds\": [\r\n\t\t1,\r\n\t\t2\r\n\t]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/umsUser/save",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"umsUser",
+										"save"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "用户批量删除",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ids\": [\r\n        2,\r\n        5\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/umsUser/del",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"umsUser",
+										"del"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "角色权限",
+					"item": [
+						{
+							"name": "通过parentId递归查询权限树（查询全部传0）",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/umsPermission/selectPermissionTreeByParentId/0",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"umsPermission",
+										"selectPermissionTreeByParentId",
+										"0"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "通过parentId递归查询权限树（查询全部传0）",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ip}}:{{Mes2Port}}/ums/umsPermission/selectPermissionTreeByParentId/0",
+											"host": [
+												"{{ip}}"
+											],
+											"port": "{{Mes2Port}}",
+											"path": [
+												"ums",
+												"umsPermission",
+												"selectPermissionTreeByParentId",
+												"0"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Method"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Headers"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 25 Mar 2021 02:38:09 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"datas\": [\n        {\n            \"id\": 1,\n            \"perName\": \"基础数据\",\n            \"perUrl\": \"/basicData/\",\n            \"perType\": 0,\n            \"parentId\": 0,\n            \"icon\": \"fa fa-database\",\n            \"status\": 1,\n            \"remark\": \"基础数据-1\",\n            \"childs\": [\n                {\n                    \"id\": 2,\n                    \"perName\": \"基本信息\",\n                    \"perUrl\": \"/basicData/basicInfo/\",\n                    \"perType\": 0,\n                    \"parentId\": 1,\n                    \"icon\": \"fa fa-cog\",\n                    \"status\": 1,\n                    \"remark\": \"基本数据-2\",\n                    \"childs\": [\n                        {\n                            \"id\": 4,\n                            \"perName\": \"组织架构\",\n                            \"perUrl\": \"/basicData/basicInfo/RhOrganization\",\n                            \"perType\": 0,\n                            \"parentId\": 2,\n                            \"icon\": \"fa fa-sitemap\",\n                            \"status\": 1,\n                            \"remark\": \"基本信息-3\",\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 5,\n                            \"perName\": \"用户管理\",\n                            \"perUrl\": \"/basicData/basicInfo/RhUsermessage\",\n                            \"perType\": 0,\n                            \"parentId\": 2,\n                            \"icon\": \"fa fa-user-circle\",\n                            \"status\": 1,\n                            \"remark\": \"基本信息-3\",\n                            \"childs\": [\n                                {\n                                    \"id\": 98,\n                                    \"perName\": \"用户列表\",\n                                    \"perUrl\": \"user:list\",\n                                    \"perType\": 1,\n                                    \"parentId\": 5,\n                                    \"icon\": \"\",\n                                    \"status\": 1,\n                                    \"remark\": null,\n                                    \"childs\": []\n                                },\n                                {\n                                    \"id\": 99,\n                                    \"perName\": \"用户新增\",\n                                    \"perUrl\": \"user:add\",\n                                    \"perType\": 0,\n                                    \"parentId\": 5,\n                                    \"icon\": \"\",\n                                    \"status\": 1,\n                                    \"remark\": null,\n                                    \"childs\": []\n                                }\n                            ]\n                        },\n                        {\n                            \"id\": 6,\n                            \"perName\": \"部门管理\",\n                            \"perUrl\": \"/basicData/basicInfo/RhDeptManage\",\n                            \"perType\": 0,\n                            \"parentId\": 2,\n                            \"icon\": \"fa fa-th-list\",\n                            \"status\": 1,\n                            \"remark\": \"基本信息-3\",\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 7,\n                            \"perName\": \"权限管理\",\n                            \"perUrl\": \"/basicData/basicInfo/RhAuthorityManage\",\n                            \"perType\": 0,\n                            \"parentId\": 2,\n                            \"icon\": \"fa fa-user-secret\",\n                            \"status\": 1,\n                            \"remark\": \"基本信息-3\",\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 8,\n                            \"perName\": \"用户角色\",\n                            \"perUrl\": \"/basicData/basicInfo/RhUserRole\",\n                            \"perType\": 0,\n                            \"parentId\": 2,\n                            \"icon\": \"fa fa-user\",\n                            \"status\": 1,\n                            \"remark\": \"基本信息-3\",\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 9,\n                            \"perName\": \"客户管理\",\n                            \"perUrl\": \"/basicData/basicInfo/RhCustomerManage\",\n                            \"perType\": 0,\n                            \"parentId\": 2,\n                            \"icon\": \"fa fa-id-card\",\n                            \"status\": 1,\n                            \"remark\": \"基本信息-3\",\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 10,\n                            \"perName\": \"供应商管理\",\n                            \"perUrl\": \"/basicData/basicInfo/RhSupplierManage\",\n                            \"perType\": 0,\n                            \"parentId\": 2,\n                            \"icon\": \"fa fa-truck\",\n                            \"status\": 1,\n                            \"remark\": \"基本信息-3\",\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 11,\n                            \"perName\": \"物料管理\",\n                            \"perUrl\": \"/basicData/basicInfo/RhMaterialManage\",\n                            \"perType\": 0,\n                            \"parentId\": 2,\n                            \"icon\": \"fa fa-life-ring\",\n                            \"status\": 1,\n                            \"remark\": \"基本信息-3\",\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 12,\n                            \"perName\": \"辅料管理\",\n                            \"perUrl\": \"/basicData/basicInfo/RhExcipientManage\",\n                            \"perType\": 0,\n                            \"parentId\": 2,\n                            \"icon\": \"fa fa-cogs\",\n                            \"status\": 1,\n                            \"remark\": \"基本信息-3\",\n                            \"childs\": []\n                        }\n                    ]\n                },\n                {\n                    \"id\": 3,\n                    \"perName\": \"基本档案\",\n                    \"perUrl\": \"/basicData/basicFile/\",\n                    \"perType\": 0,\n                    \"parentId\": 1,\n                    \"icon\": \"fa fa-folder\",\n                    \"status\": 1,\n                    \"remark\": \"基本数据-2\",\n                    \"childs\": [\n                        {\n                            \"id\": 13,\n                            \"perName\": \"物料类型\",\n                            \"perUrl\": \"/basicData/basicFile/RhMaterIalType\",\n                            \"perType\": 0,\n                            \"parentId\": 3,\n                            \"icon\": \"fa fa-object-ungroup\",\n                            \"status\": 1,\n                            \"remark\": \"基本档案-3\",\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 14,\n                            \"perName\": \"仓库信息\",\n                            \"perUrl\": \"/basicData/basicFile/RhStoreInfo\",\n                            \"perType\": 0,\n                            \"parentId\": 3,\n                            \"icon\": \"fa fa-university\",\n                            \"status\": 1,\n                            \"remark\": \"基本档案-3\",\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 15,\n                            \"perName\": \"储位设置\",\n                            \"perUrl\": \"/basicData/basicFile/RhStoreSet\",\n                            \"perType\": 0,\n                            \"parentId\": 3,\n                            \"icon\": \"fa fa-bars\",\n                            \"status\": 1,\n                            \"remark\": \"基本档案-3\",\n                            \"childs\": []\n                        }\n                    ]\n                }\n            ]\n        },\n        {\n            \"id\": 17,\n            \"perName\": \"仓库管理\",\n            \"perUrl\": \"/warehouseManagement\",\n            \"perType\": 0,\n            \"parentId\": 0,\n            \"icon\": \"el-icon-s-custom\",\n            \"status\": 1,\n            \"remark\": \"仓库管理-1\",\n            \"childs\": [\n                {\n                    \"id\": 18,\n                    \"perName\": \"仓库基础\",\n                    \"perUrl\": \"/warehouseManagement/warehouseBasis\",\n                    \"perType\": 0,\n                    \"parentId\": 17,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": \"仓库管理-2\",\n                    \"childs\": [\n                        {\n                            \"id\": 19,\n                            \"perName\": \"送货单条码管理\",\n                            \"perUrl\": \"/warehouseManagement/warehouseBasis/rhDeliveryNoteBarcodeManage\",\n                            \"perType\": 0,\n                            \"parentId\": 18,\n                            \"icon\": \"el-icon-s-check\",\n                            \"status\": 1,\n                            \"remark\": \"仓库基础-3\",\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 60,\n                            \"perName\": \"条码克隆\",\n                            \"perUrl\": \"/warehouseManagement/warehouseBasis/RhBarcodeC\",\n                            \"perType\": 0,\n                            \"parentId\": 18,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        }\n                    ]\n                },\n                {\n                    \"id\": 20,\n                    \"perName\": \"入库管理\",\n                    \"perUrl\": \"/warehouseManagement/inboundManagement\",\n                    \"perType\": 0,\n                    \"parentId\": 17,\n                    \"icon\": \"el-icon-phone-outline\",\n                    \"status\": 1,\n                    \"remark\": \"仓库管理-2\",\n                    \"childs\": [\n                        {\n                            \"id\": 21,\n                            \"perName\": \"采购入库管理\",\n                            \"perUrl\": \"/warehouseManagement/inboundManagement/rhPurchaseStorageManagement\",\n                            \"perType\": 0,\n                            \"parentId\": 20,\n                            \"icon\": \"el-icon-s-check\",\n                            \"status\": 1,\n                            \"remark\": \"仓库管理-3\",\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 22,\n                            \"perName\": \"采购入库查询\",\n                            \"perUrl\": \"/warehouseManagement/inboundManagement/rhPurchaseWarehousingQuery\",\n                            \"perType\": 0,\n                            \"parentId\": 20,\n                            \"icon\": \"el-icon-s-check\",\n                            \"status\": 1,\n                            \"remark\": \"仓库管理-3\",\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 23,\n                            \"perName\": \"其他入库管理\",\n                            \"perUrl\": \"/warehouseManagement/inboundManagement/rhOtherStorageManagement\",\n                            \"perType\": 0,\n                            \"parentId\": 20,\n                            \"icon\": \"el-icon-s-check\",\n                            \"status\": 1,\n                            \"remark\": \"仓库管理-3\",\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 24,\n                            \"perName\": \"其他入库查询\",\n                            \"perUrl\": \"/warehouseManagement/inboundManagement/rhOtherWarehousingInquiries\",\n                            \"perType\": 0,\n                            \"parentId\": 20,\n                            \"icon\": \"el-icon-s-check\",\n                            \"status\": 0,\n                            \"remark\": \"仓库管理-3\",\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 32,\n                            \"perName\": \"生产退料管理\",\n                            \"perUrl\": \"/warehouseManagement/inboundManagement/RhProductionRetuM\",\n                            \"perType\": 0,\n                            \"parentId\": 20,\n                            \"icon\": \"el-icon-s-check\",\n                            \"status\": 1,\n                            \"remark\": \"仓库管理-3\",\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 40,\n                            \"perName\": \"换料入库管理\",\n                            \"perUrl\": \"/warehouseManagement/inboundManagement/ReturnWarehouse\",\n                            \"perType\": 0,\n                            \"parentId\": 20,\n                            \"icon\": \"el-icon-s-check\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        }\n                    ]\n                },\n                {\n                    \"id\": 30,\n                    \"perName\": \"备料管理\",\n                    \"perUrl\": \"/warehouseManagement/materialPreparationManagement/\",\n                    \"perType\": 0,\n                    \"parentId\": 17,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": \"品质管理-2\",\n                    \"childs\": [\n                        {\n                            \"id\": 31,\n                            \"perName\": \"备料单管理\",\n                            \"perUrl\": \"/warehouseManagement/materialPreparationManagement/RhMaterialPrepaLM\",\n                            \"perType\": 0,\n                            \"parentId\": 30,\n                            \"icon\": null,\n                            \"status\": 1,\n                            \"remark\": \"品质管理-2\",\n                            \"childs\": []\n                        }\n                    ]\n                },\n                {\n                    \"id\": 33,\n                    \"perName\": \"采购管理\",\n                    \"perUrl\": \"/warehouseManagement/purchaseBasis\",\n                    \"perType\": 0,\n                    \"parentId\": 17,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 0,\n                    \"remark\": \"仓库管理-2\",\n                    \"childs\": [\n                        {\n                            \"id\": 34,\n                            \"perName\": \"采购查询\",\n                            \"perUrl\": \"/warehouseManagement/purchaseBasis/stockEnquiries\",\n                            \"perType\": 0,\n                            \"parentId\": 33,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 0,\n                            \"remark\": \"仓库管理-3\",\n                            \"childs\": []\n                        }\n                    ]\n                },\n                {\n                    \"id\": 35,\n                    \"perName\": \"出库管理\",\n                    \"perUrl\": \"/warehouseManagement/outboundManagement\",\n                    \"perType\": 0,\n                    \"parentId\": 17,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": \"仓库管理-2\",\n                    \"childs\": [\n                        {\n                            \"id\": 36,\n                            \"perName\": \"其他出库管理\",\n                            \"perUrl\": \"/warehouseManagement/outboundManagement/RhOtherOutM\",\n                            \"perType\": 0,\n                            \"parentId\": 35,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": \"仓库管理-3\",\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 37,\n                            \"perName\": \"退换出库管理\",\n                            \"perUrl\": \"/warehouseManagement/outboundManagement/RhReturnOutM\",\n                            \"perType\": 0,\n                            \"parentId\": 35,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        }\n                    ]\n                },\n                {\n                    \"id\": 38,\n                    \"perName\": \"调拨管理\",\n                    \"perUrl\": \"/warehouseManagement/TransferManagement\",\n                    \"perType\": 0,\n                    \"parentId\": 17,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": null,\n                    \"childs\": [\n                        {\n                            \"id\": 39,\n                            \"perName\": \"调拨单管理\",\n                            \"perUrl\": \"/warehouseManagement/TransferManagement/RhTransferOrdM\",\n                            \"perType\": 0,\n                            \"parentId\": 38,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        }\n                    ]\n                },\n                {\n                    \"id\": 41,\n                    \"perName\": \"物料仓库报表\",\n                    \"perUrl\": \"/warehouseManagement/warehouseReport\",\n                    \"perType\": 0,\n                    \"parentId\": 17,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": \"仓库管理-2\",\n                    \"childs\": [\n                        {\n                            \"id\": 42,\n                            \"perName\": \"库存查询\",\n                            \"perUrl\": \"/warehouseManagement/warehouseReport/RhInventoryI\",\n                            \"perType\": 0,\n                            \"parentId\": 41,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 43,\n                            \"perName\": \"入库查询\",\n                            \"perUrl\": \"/warehouseManagement/warehouseReport/RhInboundQ\",\n                            \"perType\": 0,\n                            \"parentId\": 41,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 44,\n                            \"perName\": \"出库查询\",\n                            \"perUrl\": \"/warehouseManagement/warehouseReport/RhOutboundQ\",\n                            \"perType\": 0,\n                            \"parentId\": 41,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 45,\n                            \"perName\": \"调拨查询\",\n                            \"perUrl\": \"/warehouseManagement/warehouseReport/RhTransferQ\",\n                            \"perType\": 0,\n                            \"parentId\": 41,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 46,\n                            \"perName\": \"作业日志\",\n                            \"perUrl\": \"/warehouseManagement/warehouseReport/RhJobL\",\n                            \"perType\": 0,\n                            \"parentId\": 41,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 47,\n                            \"perName\": \"备料报表\",\n                            \"perUrl\": \"/warehouseManagement/warehouseReport/RhMaterialPrepaR\",\n                            \"perType\": 0,\n                            \"parentId\": 41,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 48,\n                            \"perName\": \"换料查询\",\n                            \"perUrl\": \"/warehouseManagement/warehouseReport/ReturnQ\",\n                            \"perType\": 0,\n                            \"parentId\": 41,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        }\n                    ]\n                },\n                {\n                    \"id\": 49,\n                    \"perName\": \"成品管理\",\n                    \"perUrl\": \"/warehouseManagement/RhProductPackaging\",\n                    \"perType\": 0,\n                    \"parentId\": 17,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": null,\n                    \"childs\": [\n                        {\n                            \"id\": 50,\n                            \"perName\": \"产品包装\",\n                            \"perUrl\": \"/warehouseManagement/RhProductPackaging/RhProductP\",\n                            \"perType\": 0,\n                            \"parentId\": 49,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 51,\n                            \"perName\": \"成品入库\",\n                            \"perUrl\": \"/warehouseManagement/RhProductPackaging/RhPackagingQ\",\n                            \"perType\": 0,\n                            \"parentId\": 49,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 52,\n                            \"perName\": \"发货通知管理\",\n                            \"perUrl\": \"/warehouseManagement/RhProductPackaging/RhDeliDemM\",\n                            \"perType\": 0,\n                            \"parentId\": 49,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 0,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 53,\n                            \"perName\": \"销售发货管理\",\n                            \"perUrl\": \"/warehouseManagement/RhProductPackaging/MhWSalesDelivM\",\n                            \"perType\": 0,\n                            \"parentId\": 49,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 54,\n                            \"perName\": \"返工出库管理\",\n                            \"perUrl\": \"/warehouseManagement/outboundManagement/RhReworkOutM\",\n                            \"perType\": 0,\n                            \"parentId\": 49,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        }\n                    ]\n                },\n                {\n                    \"id\": 57,\n                    \"perName\": \"ECC\",\n                    \"perUrl\": \"/warehouseManagement/ECC\",\n                    \"perType\": 0,\n                    \"parentId\": 17,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": null,\n                    \"childs\": [\n                        {\n                            \"id\": 58,\n                            \"perName\": \"生产BOM\",\n                            \"perUrl\": \"/warehouseManagement/ECC/MBOM\",\n                            \"perType\": 0,\n                            \"parentId\": 57,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 59,\n                            \"perName\": \"扣料数据\",\n                            \"perUrl\": \"/warehouseManagement/ECC/BMaterialData\",\n                            \"perType\": 0,\n                            \"parentId\": 57,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        }\n                    ]\n                },\n                {\n                    \"id\": 66,\n                    \"perName\": \"成品仓库报表\",\n                    \"perUrl\": \"/warehouseManagement/warehouseProductReport\",\n                    \"perType\": 0,\n                    \"parentId\": 17,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": null,\n                    \"childs\": [\n                        {\n                            \"id\": 62,\n                            \"perName\": \"库存查询\",\n                            \"perUrl\": \"/warehouseManagement/warehouseProductReport/RhInventoryISN\",\n                            \"perType\": 0,\n                            \"parentId\": 66,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 63,\n                            \"perName\": \"入库查询\",\n                            \"perUrl\": \"/warehouseManagement/warehouseProductReport/RhInProductQ\",\n                            \"perType\": 0,\n                            \"parentId\": 66,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 64,\n                            \"perName\": \"出库查询\",\n                            \"perUrl\": \"/warehouseManagement/warehouseProductReport/RhOutProductQ\",\n                            \"perType\": 0,\n                            \"parentId\": 66,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 65,\n                            \"perName\": \"销售备料报表\",\n                            \"perUrl\": \"/warehouseManagement/warehouseProductReport/RhMaterialProductR\",\n                            \"perType\": 0,\n                            \"parentId\": 66,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        }\n                    ]\n                }\n            ]\n        },\n        {\n            \"id\": 25,\n            \"perName\": \"看板\",\n            \"perUrl\": \"/board\",\n            \"perType\": 0,\n            \"parentId\": 0,\n            \"icon\": null,\n            \"status\": 1,\n            \"remark\": \"看板\",\n            \"childs\": []\n        },\n        {\n            \"id\": 26,\n            \"perName\": \"品质管理\",\n            \"perUrl\": \"/qualityManagement\",\n            \"perType\": 0,\n            \"parentId\": 0,\n            \"icon\": \"el-icon-phone-outline\",\n            \"status\": 1,\n            \"remark\": \"品质管理-1\",\n            \"childs\": [\n                {\n                    \"id\": 27,\n                    \"perName\": \"物料检验项目\",\n                    \"perUrl\": \"/qualityManagement/testItem\",\n                    \"perType\": 0,\n                    \"parentId\": 26,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": \"品质管理-2\",\n                    \"childs\": []\n                },\n                {\n                    \"id\": 28,\n                    \"perName\": \"物料抽样方案\",\n                    \"perUrl\": \"/qualityManagement/qcPlan\",\n                    \"perType\": 0,\n                    \"parentId\": 26,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": \"品质管理-2\",\n                    \"childs\": []\n                },\n                {\n                    \"id\": 29,\n                    \"perName\": \"检验单管理\",\n                    \"perUrl\": \"/qualityManagement/qcListManagement\",\n                    \"perType\": 0,\n                    \"parentId\": 26,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": \"品质管理-2\",\n                    \"childs\": []\n                },\n                {\n                    \"id\": 67,\n                    \"perName\": \"检验水准\",\n                    \"perUrl\": \"/qualityManagement/inspectionLevel\",\n                    \"perType\": 0,\n                    \"parentId\": 26,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": null,\n                    \"childs\": []\n                },\n                {\n                    \"id\": 68,\n                    \"perName\": \"抽样方案\",\n                    \"perUrl\": \"/qualityManagement/SpPlan\",\n                    \"perType\": 0,\n                    \"parentId\": 26,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": null,\n                    \"childs\": []\n                }\n            ]\n        },\n        {\n            \"id\": 55,\n            \"perName\": \"PDA仓库扫码\",\n            \"perUrl\": \"CangKuPDA\",\n            \"perType\": 1,\n            \"parentId\": 0,\n            \"icon\": null,\n            \"status\": 1,\n            \"remark\": null,\n            \"childs\": []\n        },\n        {\n            \"id\": 56,\n            \"perName\": \"PDA包装扫码\",\n            \"perUrl\": \"BaoZhuangPDA\",\n            \"perType\": 1,\n            \"parentId\": 0,\n            \"icon\": null,\n            \"status\": 1,\n            \"remark\": null,\n            \"childs\": []\n        },\n        {\n            \"id\": 61,\n            \"perName\": \"打印条码\",\n            \"perUrl\": \"print\",\n            \"perType\": 1,\n            \"parentId\": 0,\n            \"icon\": null,\n            \"status\": 1,\n            \"remark\": null,\n            \"childs\": []\n        },\n        {\n            \"id\": 69,\n            \"perName\": \"备品管理\",\n            \"perUrl\": \"/spareParts\",\n            \"perType\": 0,\n            \"parentId\": 0,\n            \"icon\": \"el-icon-s-custom\",\n            \"status\": 1,\n            \"remark\": null,\n            \"childs\": [\n                {\n                    \"id\": 70,\n                    \"perName\": \"管理中心\",\n                    \"perUrl\": \"/spareParts/spareCenter\",\n                    \"perType\": 0,\n                    \"parentId\": 69,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": null,\n                    \"childs\": [\n                        {\n                            \"id\": 71,\n                            \"perName\": \"备品类别信息\",\n                            \"perUrl\": \"/spareParts/spareCenter/classInfo\",\n                            \"perType\": 0,\n                            \"parentId\": 70,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 72,\n                            \"perName\": \"保养内容\",\n                            \"perUrl\": \"/spareParts/spareCenter/maintainContent\",\n                            \"perType\": 0,\n                            \"parentId\": 70,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 73,\n                            \"perName\": \"保养周期\",\n                            \"perUrl\": \"/spareParts/spareCenter/maintenancePeriod\",\n                            \"perType\": 0,\n                            \"parentId\": 70,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        }\n                    ]\n                },\n                {\n                    \"id\": 74,\n                    \"perName\": \"工程治具\",\n                    \"perUrl\": \"/spareParts/EngFixture\",\n                    \"perType\": 0,\n                    \"parentId\": 69,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": null,\n                    \"childs\": [\n                        {\n                            \"id\": 75,\n                            \"perName\": \"工程治具详情\",\n                            \"perUrl\": \"/spareParts/EngFixture/fixDetails\",\n                            \"perType\": 0,\n                            \"parentId\": 74,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 76,\n                            \"perName\": \"保养记录信息\",\n                            \"perUrl\": \"/spareParts/EngFixture/MaintRecordInfo\",\n                            \"perType\": 0,\n                            \"parentId\": 74,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 77,\n                            \"perName\": \"盘点单信息\",\n                            \"perUrl\": \"/spareParts/EngFixture/blitemInfo\",\n                            \"perType\": 0,\n                            \"parentId\": 74,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 78,\n                            \"perName\": \"工程治具借用记录\",\n                            \"perUrl\": \"/spareParts/EngFixture/borrowRecord\",\n                            \"perType\": 0,\n                            \"parentId\": 74,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 79,\n                            \"perName\": \"报废信息\",\n                            \"perUrl\": \"/spareParts/EngFixture/scrapInfo\",\n                            \"perType\": 0,\n                            \"parentId\": 74,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        }\n                    ]\n                },\n                {\n                    \"id\": 80,\n                    \"perName\": \"工装备品\",\n                    \"perUrl\": \"/spareParts/equipmentSP\",\n                    \"perType\": 0,\n                    \"parentId\": 69,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": null,\n                    \"childs\": [\n                        {\n                            \"id\": 81,\n                            \"perName\": \"工装备品详情\",\n                            \"perUrl\": \"/spareParts/equipmentSP/frockInfo\",\n                            \"perType\": 0,\n                            \"parentId\": 80,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 82,\n                            \"perName\": \"工装备品借用记录\",\n                            \"perUrl\": \"/spareParts/equipmentSP/frockRecord\",\n                            \"perType\": 0,\n                            \"parentId\": 80,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 83,\n                            \"perName\": \"盘点单信息\",\n                            \"perUrl\": \"/spareParts/equipmentSP/frockblitem\",\n                            \"perType\": 0,\n                            \"parentId\": 80,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 84,\n                            \"perName\": \"报废信息\",\n                            \"perUrl\": \"/spareParts/equipmentSP/frockScrap\",\n                            \"perType\": 0,\n                            \"parentId\": 80,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        }\n                    ]\n                },\n                {\n                    \"id\": 85,\n                    \"perName\": \"工装治具\",\n                    \"perUrl\": \"/spareParts/workClothes\",\n                    \"perType\": 0,\n                    \"parentId\": 69,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": null,\n                    \"childs\": [\n                        {\n                            \"id\": 86,\n                            \"perName\": \"工装治具详情\",\n                            \"perUrl\": \"/spareParts/workClothes/workClothesDetails\",\n                            \"perType\": 0,\n                            \"parentId\": 85,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 87,\n                            \"perName\": \"保养记录\",\n                            \"perUrl\": \"/spareParts/workClothes/workClothesMaintRecord\",\n                            \"perType\": 0,\n                            \"parentId\": 85,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 88,\n                            \"perName\": \"盘点单信息\",\n                            \"perUrl\": \"/spareParts/workClothes/workClothesBlitemInfo\",\n                            \"perType\": 0,\n                            \"parentId\": 85,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 89,\n                            \"perName\": \"报废信息\",\n                            \"perUrl\": \"/spareParts/workClothes/workClothesInfo\",\n                            \"perType\": 0,\n                            \"parentId\": 85,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        }\n                    ]\n                },\n                {\n                    \"id\": 90,\n                    \"perName\": \"钢网\",\n                    \"perUrl\": \"/spareParts/steelMesh\",\n                    \"perType\": 0,\n                    \"parentId\": 69,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": null,\n                    \"childs\": [\n                        {\n                            \"id\": 91,\n                            \"perName\": \"钢网详情\",\n                            \"perUrl\": \"/spareParts/steelMesh/steelMeshDetails\",\n                            \"perType\": 0,\n                            \"parentId\": 90,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 92,\n                            \"perName\": \"钢网保养记录\",\n                            \"perUrl\": \"/spareParts/steelMesh/steelMeshMaintRecord\",\n                            \"perType\": 0,\n                            \"parentId\": 90,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 93,\n                            \"perName\": \"钢网盘点单\",\n                            \"perUrl\": \"/spareParts/steelMesh/steelMeshBlitemInfo\",\n                            \"perType\": 0,\n                            \"parentId\": 90,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 94,\n                            \"perName\": \"钢网报废信息\",\n                            \"perUrl\": \"/spareParts/steelMesh/steelMeshInfo\",\n                            \"perType\": 0,\n                            \"parentId\": 90,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        },\n                        {\n                            \"id\": 95,\n                            \"perName\": \"钢网借用记录\",\n                            \"perUrl\": \"/spareParts/steelMesh/steelMeshRecord\",\n                            \"perType\": 0,\n                            \"parentId\": 90,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        }\n                    ]\n                },\n                {\n                    \"id\": 96,\n                    \"perName\": \"工程设备\",\n                    \"perUrl\": \"/spareParts/projectFacility\",\n                    \"perType\": 0,\n                    \"parentId\": 69,\n                    \"icon\": \"el-icon-s-custom\",\n                    \"status\": 1,\n                    \"remark\": null,\n                    \"childs\": [\n                        {\n                            \"id\": 97,\n                            \"perName\": \"工程设备详情\",\n                            \"perUrl\": \"/spareParts/projectFacility/projectFacilityDetails\",\n                            \"perType\": 0,\n                            \"parentId\": 96,\n                            \"icon\": \"el-icon-s-custom\",\n                            \"status\": 1,\n                            \"remark\": null,\n                            \"childs\": []\n                        }\n                    ]\n                }\n            ]\n        }\n    ],\n    \"resp_code\": 0,\n    \"resp_msg\": \"查询成功\"\n}"
+								}
+							]
+						},
+						{
+							"name": "添加角色和权限",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"perIdList\": [\r\n\t\t1,\r\n\t\t2,\r\n\t\t3\r\n\t],\r\n\t\"roleName\": \"管理员\",\r\n\t\"sort\": 1,\r\n\t\"status\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/umsRole/addRoleAndPer",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"umsRole",
+										"addRoleAndPer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "修改角色和权限",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"id\": 8,\r\n\t\"perIdList\": [\r\n\t\t7,\r\n\t\t8\r\n\t],\r\n\t\"roleName\": \"lll\",\r\n\t\"sort\": 1,\r\n\t\"status\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/umsRole/editRoleAndPer",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"umsRole",
+										"editRoleAndPer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查询角色列表以及对应的权限",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/umsRole/list",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"umsRole",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除角色",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/umsRole/del/1",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"umsRole",
+										"del",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除权限",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/umsPermission/del/1",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"umsPermission",
+										"del",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "新增or更新 权限菜单",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 0,\r\n  \"component\": \"string\",\r\n  \"enName\": \"string\",\r\n  \"icon\": \"string\",\r\n  \"parentId\": 0,\r\n  \"perName\": \"string\",\r\n  \"perSort\": 0,\r\n  \"perType\": 0,\r\n  \"perUrl\": \"string\",\r\n  \"remark\": \"string\",\r\n  \"status\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/umsPermission/save",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"umsPermission",
+										"save"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "新增or更新 权限菜单",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "                t.id id,  -- 主键\r\n                t.per_name perName,  -- 权限名\r\n                t.en_name enName,  -- 英文名\r\n                t.per_url perUrl,  -- 权限路径\r\n                t.component component,  -- 组件路径\r\n                t.icon icon,  -- 图标\r\n                t.per_sort perSort,  -- 排序\r\n                t.per_type perType,  -- 权限类型 例如 0 菜单 1按钮\r\n                t.parent_id parentId,  -- 上级权限 默认 0\r\n                t.status status,  -- 状态 0 禁用 1 启用\r\n                t.remark remark,  -- 描述\r\n                t.create_time createTime,  -- 创建时间\r\n                t.update_time updateTime  -- 更新时间\r\n{\r\n  \"id\": 0,\r\n  \"component\": \"string\",\r\n  \"enName\": \"string\",\r\n  \"icon\": \"string\",\r\n  \"parentId\": 0,\r\n  \"perName\": \"string\",\r\n  \"perSort\": 0,\r\n  \"perType\": 0,\r\n  \"perUrl\": \"string\",\r\n  \"remark\": \"string\",\r\n  \"status\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ip}}:{{Mes2Port}}/ums/umsPermission/save",
+											"host": [
+												"{{ip}}"
+											],
+											"port": "{{Mes2Port}}",
+											"path": [
+												"ums",
+												"umsPermission",
+												"save"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Method"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Headers"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 10 Jun 2021 06:04:18 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"datas\": null,\n    \"resp_code\": 0,\n    \"resp_msg\": \"保存成功\"\n}"
+								}
+							]
+						},
+						{
+							"name": "批量删除权限",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ids\":[1,2]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/umsPermission/deleteBatch",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"umsPermission",
+										"deleteBatch"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "部门",
+					"item": [
+						{
+							"name": "通过parentCode递归查询树状部门列表 （parentCode='0'查询全部）",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/umsDepa/depaTree/0",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"umsDepa",
+										"depaTree",
+										"0"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/umsDepa/del/17",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"umsDepa",
+										"del",
+										"17"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据id查询",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/umsDepa/sel/1",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"umsDepa",
+										"sel",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "保存或修改",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"id\": 17,\r\n\t\"code\": \"003\",\r\n\t\"name\": \"三厂\",\r\n\t\"parentId\": 0,\r\n\t\"type\": \"机构\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/umsDepa/save",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"umsDepa",
+										"save"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "通过机构code查询所有子级集合",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ip}}:{{Mes2Port}}/ums/umsDepa/depaTree/0",
+									"host": [
+										"{{ip}}"
+									],
+									"port": "{{Mes2Port}}",
+									"path": [
+										"ums",
+										"umsDepa",
+										"depaTree",
+										"0"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
