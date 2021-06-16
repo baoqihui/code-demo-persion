@@ -4,7 +4,7 @@ server:
 spring:
   datasource:                   #mysql
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://120.27.244.176:3306/mes?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://120.27.244.176:3306/demo?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: HBQ521521cf*
     hikari:
