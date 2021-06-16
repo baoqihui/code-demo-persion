@@ -19,8 +19,8 @@ public class FileManageServiceImpl implements FileManageService {
     private String filePath;
     @Value("${nginx.filePathForDownload}")
     private String filePathForDownload;
-    @Value("${nginx.ipAndPort}")
-    private String ipAndPort;
+    @Value("${nginx.ipAndPortAndFilePrefix}")
+    private String ipAndPortAndFilePrefix;
 
     @Override
     public String uploadToNginxForOpen(MultipartFile file, String modelName)  {
@@ -31,9 +31,7 @@ public class FileManageServiceImpl implements FileManageService {
                 test.mkdirs();
             }
             file.transferTo(test);
-            String prefix = "/"+StrUtil.subSuf(filePath,3);
-            System.out.println(prefix);
-            String finalPath="http://"+ipAndPort+prefix+path;
+            String finalPath="http://"+ipAndPortAndFilePrefix+path;
             log.info("上传直接打开文件{}",finalPath);
             return finalPath;
         }catch (Exception e){
@@ -52,7 +50,7 @@ public class FileManageServiceImpl implements FileManageService {
             }
             file.transferTo(test);
             String prefix = "/"+StrUtil.subSuf(filePathForDownload,3);
-            String finalPath="http://"+ipAndPort+prefix+path;
+            String finalPath="http://"+ipAndPortAndFilePrefix+path;
             log.info("上传可下载文件{}",finalPath);
             return finalPath;
         }catch (Exception e){

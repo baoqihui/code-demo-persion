@@ -45,8 +45,7 @@ Oos:
 nginx:
   filePath: D:\file/
   filePathForDownload: D:\file/download/
-  ipAndPort: 192.168.61.101:80
-
+  ipAndPortAndFilePrefix: 192.168.61.101:80/file/
 
 #minio文件服务
 #minio:
