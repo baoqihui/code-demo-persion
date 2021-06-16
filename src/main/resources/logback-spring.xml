@@ -124,6 +124,7 @@
     <!--dev环境输出到文件-->
     <springProfile name="dev">
         <root level="info">
+            <appender-ref ref="consoleLog"/>
             <appender-ref ref="fileInfoLog"/>
             <appender-ref ref="fileWarnLog"/>
             <appender-ref ref="fileErrorLog"/>
@@ -133,6 +134,7 @@
     <!--pro环境输出到文件-->
     <springProfile name="pro">
         <root level="info">
+            <appender-ref ref="consoleLog"/>
             <appender-ref ref="fileInfoLog"/>
             <appender-ref ref="fileWarnLog"/>
             <appender-ref ref="fileErrorLog"/>
