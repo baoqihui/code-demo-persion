@@ -41,6 +41,6 @@ Oos:
   filedir: image/
 
 nginx:
-  filePath: /file/
-  filePathForDownload: /file/download/
-  port: 8000
+  filePath: /f/file/
+  filePathForDownload: /f/file/download/
+  ipAndPort: 120.27.244.176:8000
