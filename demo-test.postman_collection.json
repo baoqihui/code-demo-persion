@@ -26,11 +26,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/auth",
+									"raw": "{{ip}}:8088/ums/auth",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"auth"
@@ -54,11 +54,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/logout",
+									"raw": "{{ip}}:8088/ums/logout",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"logout"
@@ -73,11 +73,11 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/getInfo",
+									"raw": "{{ip}}:8088/ums/getInfo",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"getInfo"
@@ -101,11 +101,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/umsUser/list",
+									"raw": "{{ip}}:8088/ums/umsUser/list",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"umsUser",
@@ -130,11 +130,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/umsUser/sel/1",
+									"raw": "{{ip}}:8088/ums/umsUser/sel/1",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"umsUser",
@@ -160,11 +160,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/umsUser/save",
+									"raw": "{{ip}}:8088/ums/umsUser/save",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"umsUser",
@@ -189,11 +189,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/umsUser/del",
+									"raw": "{{ip}}:8088/ums/umsUser/del",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"umsUser",
@@ -223,11 +223,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/umsPermission/selectPermissionTreeByParentId/0",
+									"raw": "{{ip}}:8088/ums/umsPermission/selectPermissionTreeByParentId/0",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"umsPermission",
@@ -252,11 +252,11 @@
 											}
 										},
 										"url": {
-											"raw": "{{ip}}:{{Mes2Port}}/ums/umsPermission/selectPermissionTreeByParentId/0",
+											"raw": "{{ip}}:8088/ums/umsPermission/selectPermissionTreeByParentId/0",
 											"host": [
 												"{{ip}}"
 											],
-											"port": "{{Mes2Port}}",
+											"port": "8088",
 											"path": [
 												"ums",
 												"umsPermission",
@@ -322,11 +322,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/umsRole/addRoleAndPer",
+									"raw": "{{ip}}:8088/ums/umsRole/addRoleAndPer",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"umsRole",
@@ -351,11 +351,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/umsRole/editRoleAndPer",
+									"raw": "{{ip}}:8088/ums/umsRole/editRoleAndPer",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"umsRole",
@@ -380,11 +380,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/umsRole/list",
+									"raw": "{{ip}}:8088/ums/umsRole/list",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"umsRole",
@@ -400,11 +400,11 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/umsRole/del/1",
+									"raw": "{{ip}}:8088/ums/umsRole/del/1",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"umsRole",
@@ -421,11 +421,11 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/umsPermission/del/1",
+									"raw": "{{ip}}:8088/ums/umsPermission/del/1",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"umsPermission",
@@ -451,11 +451,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/umsPermission/save",
+									"raw": "{{ip}}:8088/ums/umsPermission/save",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"umsPermission",
@@ -479,11 +479,11 @@
 											}
 										},
 										"url": {
-											"raw": "{{ip}}:{{Mes2Port}}/ums/umsPermission/save",
+											"raw": "{{ip}}:8088/ums/umsPermission/save",
 											"host": [
 												"{{ip}}"
 											],
-											"port": "{{Mes2Port}}",
+											"port": "8088",
 											"path": [
 												"ums",
 												"umsPermission",
@@ -548,11 +548,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/umsPermission/deleteBatch",
+									"raw": "{{ip}}:8088/ums/umsPermission/deleteBatch",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"umsPermission",
@@ -582,11 +582,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/umsDepa/depaTree/0",
+									"raw": "{{ip}}:8088/ums/umsDepa/depaTree/0",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"umsDepa",
@@ -603,11 +603,11 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/umsDepa/del/17",
+									"raw": "{{ip}}:8088/ums/umsDepa/del/17",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"umsDepa",
@@ -624,11 +624,11 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/umsDepa/sel/1",
+									"raw": "{{ip}}:8088/ums/umsDepa/sel/1",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"umsDepa",
@@ -654,11 +654,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/umsDepa/save",
+									"raw": "{{ip}}:8088/ums/umsDepa/save",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"umsDepa",
@@ -683,11 +683,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{ip}}:{{Mes2Port}}/ums/umsDepa/depaTree/0",
+									"raw": "{{ip}}:8088/ums/umsDepa/depaTree/0",
 									"host": [
 										"{{ip}}"
 									],
-									"port": "{{Mes2Port}}",
+									"port": "8088",
 									"path": [
 										"ums",
 										"umsDepa",
