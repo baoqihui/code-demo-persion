@@ -49,7 +49,6 @@ public class FileManageServiceImpl implements FileManageService {
                 test.mkdirs();
             }
             file.transferTo(test);
-            String prefix = "/"+StrUtil.subSuf(filePathForDownload,3);
             String finalPath="http://"+ipAndPortAndFilePrefix+path;
             log.info("上传可下载文件{}",finalPath);
             return finalPath;
