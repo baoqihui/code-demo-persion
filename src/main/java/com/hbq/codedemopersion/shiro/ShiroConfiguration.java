@@ -6,8 +6,10 @@ import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -24,6 +26,10 @@ import java.util.Map;
  */
 @Configuration
 public class ShiroConfiguration {
+	@Value("${shiro.session-timeout}")
+	private Long sessionTimeout;
+	@Value("${shiro.session-id-cookie}")
+	private String sessionIdCookie;
 	/**
 	 * Shiro的Web过滤器Factory 命名:shiroFilter
 	 */
@@ -61,12 +67,13 @@ public class ShiroConfiguration {
 		return shiroFilterFactoryBean;
 	}
 	/**
-	 * 设置shiro的session过期时间
+	 * 设置shiro的session过期时间以及cookie名
 	 * */
 	@Bean
 	public DefaultWebSessionManager sessionManager() {
 		DefaultWebSessionManager defaultWebSessionManager = new DefaultWebSessionManager();
-		defaultWebSessionManager.setGlobalSessionTimeout(1000 * 60 * 60 * 24);// 会话过期时间，单位：毫秒(在无操作时开始计时)--->一分钟,用于测试
+		defaultWebSessionManager.setGlobalSessionTimeout(sessionTimeout);// 会话过期时间，单位：毫秒(在无操作时开始计时)--->一分钟,用于测试
+		defaultWebSessionManager.setSessionIdCookie(new SimpleCookie(sessionIdCookie));
 		return defaultWebSessionManager;
 	}
 	/**
@@ -112,7 +119,7 @@ public class ShiroConfiguration {
 	 * Shiro生命周期处理器
 	 */
 	@Bean
-	public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+	public static LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
 		return new LifecycleBeanPostProcessor();
 	}
 

@@ -44,3 +44,8 @@ nginx:
   filePath: /file/
   filePathForDownload: /file/download/
   ipAndPortAndFilePrefix: 120.27.244.176:8000/file/
+
+#shiro配置
+shiro:
+  session-timeout: 86400000 #1天
+  session-id-cookie: DEMO_COOKIE

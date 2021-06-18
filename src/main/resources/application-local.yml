@@ -47,6 +47,10 @@ nginx:
   filePathForDownload: D:\file/download/
   ipAndPortAndFilePrefix: 192.168.61.101:80/file/
 
+#shiro配置
+shiro:
+  session-timeout: 86400000 #1天
+  session-id-cookie: DEMO_COOKIE
 #minio文件服务
 #minio:
 #  url: http://127.0.0.1:9000
