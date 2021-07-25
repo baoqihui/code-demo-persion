@@ -48,7 +48,7 @@ QiNiuOos:
   ACCESS_KEY: _X-yKzkCDsq7E9VLjvXd-Bao3VlS3UpMKH__4r1_
   SECRET_KEY: IX2MSKiKVASuMfINOvWg134I_HpCRhnfFydH6TDg
   BUCKET_NAME: my-new-file
-  DOMAIN: file.huijia21.com
+  DOMAIN: http://file.huijia21.com
 nginx:
   filePath: /file/
   filePathForDownload: /file/download/

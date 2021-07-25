@@ -17,4 +17,6 @@ public interface FileManageService {
     String qiniuUpload(MultipartFile file, String modelName,Integer isAutoUUID);
 
     List getList(String prefix);
+
+    String delete(String path);
 }

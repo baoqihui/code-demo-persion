@@ -61,8 +61,7 @@ public class ShiroConfiguration {
 		//放行登录接口
 		filterChainDefinitionMap.put("/ums/auth", "anon");
 		filterChainDefinitionMap.put("/ums/logout", "anon");
-		filterChainDefinitionMap.put("/qiniuUpload", "anon");
-		filterChainDefinitionMap.put("/getFileList", "anon");
+		filterChainDefinitionMap.put("/file/**", "anon");
 		//其余全部认证
 		filterChainDefinitionMap.put("/**", "authc");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

@@ -1,9 +1,7 @@
 package com.hbq.codedemopersion.common.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.StrUtil;
 import com.hbq.codedemopersion.common.service.FileManageService;
-import com.hbq.codedemopersion.util.OssUploadImage;
 import com.hbq.codedemopersion.util.QiniuCloudUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.InetAddress;
 import java.util.List;
 
 @Slf4j
@@ -75,7 +71,7 @@ public class FileManageServiceImpl implements FileManageService {
                 finalFileName=modelName+ "/"+ IdUtil.simpleUUID() +"-"+finalFileName;
             }
             //使用base64方式上传到七牛云
-            String url = qiniuCloudUtil.uploadQNImg((FileInputStream) file.getInputStream(), finalFileName);
+            String url = qiniuCloudUtil.uploadFile((FileInputStream) file.getInputStream(), finalFileName);
             log.info("上传地址为----：" + url);
             return url;
         }catch (Exception e){
@@ -87,5 +83,10 @@ public class FileManageServiceImpl implements FileManageService {
     @Override
     public List getList(String prefix) {
         return qiniuCloudUtil.getList(prefix);
+    }
+
+    @Override
+    public String delete(String path) {
+        return qiniuCloudUtil.delete(path);
     }
 }

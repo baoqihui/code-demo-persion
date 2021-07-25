@@ -15,6 +15,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @Api(tags = "文件服务")
+@RequestMapping("/file")
 public class FileController {
     @Autowired
     private FileManageService fileManageService;
@@ -47,5 +48,11 @@ public class FileController {
     @PostMapping(value = "/getFileList")
     public List getList(String prefix){
         return fileManageService.getList(prefix);
+    }
+
+    @ApiOperation(value = "删除文件")
+    @PostMapping(value = "/delete")
+    public String delete(String path){
+        return fileManageService.delete(path);
     }
 }

@@ -1,5 +1,6 @@
 package com.hbq.codedemopersion.util;
 
+import cn.hutool.core.util.StrUtil;
 import com.google.gson.Gson;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
@@ -35,9 +36,9 @@ public class QiniuCloudUtil {
     private String DOMAIN;
 
     /**
-     * 将图片上传到七牛云
+     * 将文件上传到七牛云
      */
-    public String uploadQNImg(FileInputStream file, String key) {
+    public String uploadFile(FileInputStream file, String key) {
         // 密钥
         Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
         // 构造一个带指定Zone对象的配置类, 注意这里的Zone.zone0需要根据主机选择
@@ -70,7 +71,9 @@ public class QiniuCloudUtil {
         }
         return "";
     }
-
+    /**
+     * 获取某前缀下的文件列表
+     */
     public List getList(String prefix){
         // 密钥
         Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
@@ -92,5 +95,23 @@ public class QiniuCloudUtil {
             }
         }
         return paths;
+    }
+    /**
+     * 删除某地址的文件
+     */
+    public String delete(String path){
+        // 密钥
+        Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
+        // 构造一个带指定Zone对象的配置类, 注意这里的Zone.zone0需要根据主机选择
+        Configuration cfg = new Configuration(Zone.zone2());
+        BucketManager bucketManager = new BucketManager(auth, cfg);
+        String key = StrUtil.removePrefix(path, DOMAIN + "/");
+        try {
+            bucketManager.delete(BUCKET_NAME, key);
+            return "删除成功";
+        } catch (QiniuException ex) {
+            //如果遇到异常，说明删除失败
+            return ex.code()+ex.response.toString();
+        }
     }
 }
