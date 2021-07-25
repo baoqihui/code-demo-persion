@@ -18,6 +18,10 @@ spring:
     port: 6379 # Redis服务器连接端口
     password: HBQ521521cf* # Redis服务器连接密码（默认为空）
     timeout: 3000ms # 连接超时时间（毫秒）
+  servlet:
+    multipart:
+      max-file-size: -1
+      maxRequestSize: -1
 #mybatis配置逻辑删除
 mybatis-plus:
   global-config:
@@ -40,6 +44,13 @@ Oos:
   endpoint: oss-cn-hangzhou.aliyuncs.com
   filedir: image/
 
+
+#七牛云oss配置
+QiNiuOos:
+  ACCESS_KEY: _X-yKzkCDsq7E9VLjvXd-Bao3VlS3UpMKH__4r1_
+  SECRET_KEY: IX2MSKiKVASuMfINOvWg134I_HpCRhnfFydH6TDg
+  BUCKET_NAME: my-new-file
+  DOMAIN: file.huijia21.com
 
 #nginx文件上传路径
 nginx:

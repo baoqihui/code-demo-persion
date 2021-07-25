@@ -1,14 +1,16 @@
 package com.hbq.codedemopersion.common.controller;
 
+import com.hbq.codedemopersion.common.model.Result;
 import com.hbq.codedemopersion.common.service.FileManageService;
+import com.hbq.codedemopersion.util.QiniuCloudUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -33,5 +35,17 @@ public class FileController {
         }
         return fileManageService.uploadToNginxForDownload(file,modelName);
     }
-
+    @ApiOperation(value = "上传文件到七牛云")
+    @PostMapping(value = "/qiniuUpload")
+    public String qiniuUpload(@RequestParam("file") MultipartFile file,String modelName,Integer isAutoUUID){
+        if (file.isEmpty()) {
+            return "文件不能为空";
+        }
+        return fileManageService.qiniuUpload(file,modelName,isAutoUUID);
+    }
+    @ApiOperation(value = "获取文件列表")
+    @PostMapping(value = "/getFileList")
+    public List getList(String prefix){
+        return fileManageService.getList(prefix);
+    }
 }

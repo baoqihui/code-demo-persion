@@ -4,7 +4,7 @@ server:
 spring:
   datasource:                   #mysql
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    url: jdbc:p6spy:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:p6spy:mysql://120.27.244.176:3306/demo?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: HBQ521521cf*
     hikari:
@@ -13,11 +13,16 @@ spring:
     date-format: yyyy-MM-dd
     time-zone: GMT+8
   redis:
-    host: localhost # Redis服务器地址
+    host: 120.27.244.176 # Redis服务器地址
     database: 0 # Redis数据库索引（默认为0）
     port: 6379 # Redis服务器连接端口
     password: HBQ521521cf* # Redis服务器连接密码（默认为空）
     timeout: 3000ms # 连接超时时间（毫秒）
+  servlet:
+    multipart:
+      max-file-size: -1
+      maxRequestSize: -1
+
 #mybatis配置逻辑删除
 mybatis-plus:
   global-config:
@@ -32,7 +37,7 @@ FastDFS:
   imgPrefixPath: http://120.27.244.176/
   propertiesPath: /D:/config/fastdfs.properties
 
-#oss配置
+#阿里云oss配置
 Oos:
   accessKeyId: LTAI4FoAmdJuwmE5Q6RHffBc
   accessKeySecret: pMWwp6eiqGrnPTYqk2aHn8Q4AVheTs
@@ -40,6 +45,12 @@ Oos:
   endpoint: oss-cn-hangzhou.aliyuncs.com
   filedir: image/
 
+#七牛云oss配置
+QiNiuOos:
+  ACCESS_KEY: _X-yKzkCDsq7E9VLjvXd-Bao3VlS3UpMKH__4r1_
+  SECRET_KEY: IX2MSKiKVASuMfINOvWg134I_HpCRhnfFydH6TDg
+  BUCKET_NAME: my-new-file
+  DOMAIN: file.huijia21.com
 
 #nginx文件上传路径
 nginx:
