@@ -2,13 +2,14 @@ package com.hbq.codedemopersion.config;
 
 import com.hbq.codedemopersion.common.model.ErrorEnum;
 import com.hbq.codedemopersion.common.model.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Arrays;
 
 /**
  * @author: hbq
@@ -17,8 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @ControllerAdvice
 @ResponseBody
+@Slf4j
 public class GlobalExceptionHandler {
-	private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 	/**
 	 * 未登录报错拦截
@@ -39,11 +40,11 @@ public class GlobalExceptionHandler {
 
 
 	/**
-	 * 空指针异常
+	 * 常规异常处理
 	 */
-	/*
-	@ExceptionHandler(NullPointerException.class)
-	public Result nullException() {
+	@ExceptionHandler(Throwable.class)
+	public Result handleGeneralException(Exception e) {
+		log.error("未知异常：{}\nat：{}", e.getMessage(), Arrays.toString(e.getStackTrace()).replaceAll(",", "\n   "));
 		return Result.failedWith("", ErrorEnum.E_500.getErrorCode(), ErrorEnum.E_500.getErrorMsg());
-	}*/
+	}
 }
