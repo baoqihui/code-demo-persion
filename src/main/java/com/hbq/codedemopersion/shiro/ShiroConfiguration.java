@@ -58,6 +58,7 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/swagger-resources/**","anon");
 		filterChainDefinitionMap.put("/v2/**","anon");
 		filterChainDefinitionMap.put("/static/**", "anon");
+		filterChainDefinitionMap.put("/test/**", "anon");
 		//放行登录接口
 		filterChainDefinitionMap.put("/ums/auth", "anon");
 		filterChainDefinitionMap.put("/ums/logout", "anon");

@@ -1,4 +1,4 @@
-package com.yk.i_wms.common.controller;
+package com.hbq.codedemopersion.common.controller.test;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUnit;
@@ -27,7 +27,7 @@ import java.util.Date;
 @CrossOrigin
 @RestController
 @Api(tags = "测试定时发送邮件")
-@RequestMapping("ums")
+@RequestMapping("test")
 public class TestTimerSendMailController {
     /**
      * 示例

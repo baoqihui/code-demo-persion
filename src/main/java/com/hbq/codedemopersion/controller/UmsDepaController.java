@@ -1,6 +1,7 @@
 package com.hbq.codedemopersion.controller;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hbq.codedemopersion.common.model.PageResult;
 import com.hbq.codedemopersion.common.model.Result;
@@ -63,6 +64,18 @@ public class UmsDepaController {
         return Result.succeed("保存成功");
     }
 
+    /**
+     * 测试多数据源配置
+     * @param umsDepa
+     * @return
+     */
+    @DS("slave")
+    @ApiOperation(value = "保存")
+    @PostMapping("/umsDepa/saveTest")
+    public Result saveTest(@RequestBody UmsDepa umsDepa) {
+        umsDepaService.saveOrUpdate(umsDepa);
+        return Result.succeed("保存成功");
+    }
     /**
      * 删除
      */

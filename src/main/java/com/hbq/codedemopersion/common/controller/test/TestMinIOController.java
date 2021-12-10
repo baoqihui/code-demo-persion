@@ -1,4 +1,4 @@
-package com.hbq.codedemopersion.common.controller;
+package com.hbq.codedemopersion.common.controller.test;
 
 import com.hbq.codedemopersion.util.MinIoUtil;
 import io.swagger.annotations.Api;
