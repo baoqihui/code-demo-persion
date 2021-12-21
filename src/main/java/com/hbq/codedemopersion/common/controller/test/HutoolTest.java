@@ -82,10 +82,9 @@ public class HutoolTest {
 
         Map<String, Object> params = new HashMap<>(8) {{
             put("username", 1);
-            put("plate_no", 1);
             put("plate_type", 1);
         }};
-        System.out.println(BeanUtil.toBeanIgnoreCase(params, ZhiCheAuto.class, true));
+        System.out.println(BeanUtil.toBeanIgnoreCase(params, AutoModel.class, true));
 
 
         int increase = 10;

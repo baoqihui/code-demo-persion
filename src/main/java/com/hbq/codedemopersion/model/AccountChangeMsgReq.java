@@ -11,6 +11,9 @@ import lombok.ToString;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.hbq.codedemopersion.common.model.WechatTemplateEnum.ACCOUNT_CHANGE;
+
 /**
  * @Author: huibq
  * @Description: 奖励到账实体
@@ -18,9 +21,9 @@ import java.util.Map;
  */
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @ToString
-public class AccountChangeMsgReq extends SendMsgReq{
+public class AccountChangeMsgReq extends SendMsgReq {
     /**
      * 达标总天数
      */
@@ -36,21 +39,20 @@ public class AccountChangeMsgReq extends SendMsgReq{
      */
     private Long changeAmount;
 
-    public AccountChangeMsgReq(WechatTemplateEnum templateEnum, String receiver, Integer standardCount, Integer monthMaxAmount, Long changeAmount) {
-        super(templateEnum,receiver);
+    public AccountChangeMsgReq(String receiver, Integer standardCount, Integer monthMaxAmount, Long changeAmount) {
+        super(receiver);
         this.standardCount = standardCount;
         this.changeAmount = changeAmount;
         this.monthMaxAmount = monthMaxAmount;
     }
 
-    /**
-     * 装换
-     * @return
-     */
     @Override
-    public Map<String, Object> covertMsgReqToMap(){
-        WechatTemplateEnum templateEnum = super.getTemplateEnum();
-        String receiver = super.getReceiver();
+    public WechatTemplateEnum templateEnum() {
+        return ACCOUNT_CHANGE;
+    }
+
+    @Override
+    public Map<String, Object> assembleCustomTemplateParams() {
         /* 处理相关数据参数 */
         //此次变更金额(元)
         BigDecimal changeAmountDollar = AmountConvertUtil.fenToYuanFormatTwoRoundTowards(changeAmount);
@@ -58,16 +60,17 @@ public class AccountChangeMsgReq extends SendMsgReq{
         BigDecimal monthMaxDecimal = AmountConvertUtil.fenToYuanFormatRoundTowards(monthMaxAmount);
 
         return new HashMap<>(8) {{
-            put("body", new HashMap<>(8) {{
-                put("touser", receiver);
-                put("template_id", templateEnum.getTemplateId());
-                put("page", templateEnum.getPage());
-                put("data", new HashMap<>(8){{
-                    put(templateEnum.getMap().get("param1").toString(),new HashMap<>(2){{ put("value", "恭喜您！本次停驶完成"); }});
-                    put(templateEnum.getMap().get("param2").toString(),new HashMap<>(2){{ put("value", changeAmountDollar +"元"); }});
-                    put(templateEnum.getMap().get("param3").toString(),new HashMap<>(2){{ put("value", DateUtil.now()); }});
-                    put(templateEnum.getMap().get("param4").toString(),new HashMap<>(2){{ put("value", "每月少开"+ standardCount +"天车，必得奖励"+ monthMaxDecimal +"元钱"); }});
-                }});
+            put("thing1", new HashMap<>() {{
+                put("value", "恭喜您！本次停驶完成");
+            }});
+            put("amount2", new HashMap<>() {{
+                put("value", changeAmountDollar + "元");
+            }});
+            put("time3", new HashMap<>() {{
+                put("value", DateUtil.now());
+            }});
+            put("thing4", new HashMap<>() {{
+                put("value", "每月少开" + standardCount + "天车，必得奖励" + monthMaxDecimal + "元钱");
             }});
         }};
     }
