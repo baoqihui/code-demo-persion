@@ -8,11 +8,20 @@ import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.StreamProgress;
+import cn.hutool.core.net.URLEncoder;
+import cn.hutool.core.net.url.UrlBuilder;
+import cn.hutool.core.net.url.UrlPath;
+import cn.hutool.core.util.*;
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.hbq.codedemopersion.util.User;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,28 +81,42 @@ public class HutoolTest {
         Long l = Convert.toLong(1);
         log.info("Object->Long：{}", l);
 
-        log.info("-------------HTTP------------");
-/*        String s2 = HttpUtil.get("https://www.baidu.com");
-        log.info("HTTP GET Result:{}",s2);
-        JSONObject body=new JSONObject();
-        body.set("token","ognFF5W5JQiXx40TVPIKegfy8JLY");
-        String s3 = HttpUtil.post("https://www.baidu.com", body);
-        log.info("HTTP POST Result:{}",s3);*/
+        boolean m1 = ReUtil.isMatch("^142000.*", "142000123456");
+        log.info("正则校验筛142000123456是否是142000开头{}", m1);
 
         Map<String, Object> params = new HashMap<>(8) {{
             put("username", 1);
             put("plate_type", 1);
         }};
-        System.out.println(BeanUtil.toBeanIgnoreCase(params, AutoModel.class, true));
-
-
-        int increase = 10;
-        int allMonth = 80 * 12;
-        int allMoney = 0;
-        for (int i = 1; i <= allMonth; i++) {
-            allMoney=allMoney+increase*i;
-        }
-        System.out.println(allMoney);
-
+        log.info("map转实体{}", BeanUtil.toBeanIgnoreCase(params, AutoModel.class, true));
+        log.info("实体转json参数：{}", HttpUtil.toParams(params));
+        log.info("实体转map参数：{}", Convert.toMap(String.class, String.class, params));
+        log.info("-------------HTTP------------");
+        /*
+        String s2 = HttpUtil.get("https://www.baidu.com");
+        log.info("HTTP GET Result:{}",s2);
+        JSONObject body=new JSONObject();
+        body.set("token","ognFF5W5JQiXx40TVPIKegfy8JLY");
+        String s3 = HttpUtil.post("https://www.baidu.com", body);
+        log.info("HTTP POST Result:{}",s3);
+        log.info("-------------file------------");
+        String fileUrl = "https://cheche-dev.obs.cn-north-1.myhuaweicloud.com:443/sdas/itg/ac_01/60e8d13b-2229-46b0-a62d-fad017d798f4/default/8f4c2621-011e-4145-8374-04d4db5a223a.zip?AccessKeyId=LP558ZIZWMCVWNQR53PW&Expires=1646378117&Signature=aERZyJ2mzIxIbYV2Yl1P33XVWRc%3D";
+        File file1 = HttpUtil.downloadFileFromUrl(fileUrl, FileUtil.mkdir(IdWorker.getId() + File.separator), 10000);
+        String mimeType = FileUtil.getMimeType(file1.getName());
+        log.info("从url下载文件，filename：{}", file1.getName());
+        File file2 = HttpUtil.downloadFileFromUrl("http://img.huijia21.com/blog/1626493168032.png", FileUtil.file("./"), 10000);
+        File zip = ZipUtil.zip(FileUtil.file("./test.zip"), false, List.of(file1, file2).toArray(File[]::new));
+        log.info("压缩文件，filename：{}", zip.getName());
+        //FileUtil.del(zip);
+        */
+        //String host = UrlBuilder.ofHttp(request.getRequestURL().toString()).getHost();
+/*        String callBackUrl = UrlBuilder.create()
+                .setScheme("https")
+                .setHost(host)
+                .setPath(UrlPath.of("/api/v2.0/wechatApp/subscribeMessage/callback", StandardCharsets.UTF_8))
+                .build();
+        log.info("callBackUrl:{}", callBackUrl);
+        log.info("callBackUrl:{}", URLEncoder.createPathSegment().encode(callBackUrl, StandardCharsets.UTF_8));
+        log.info("callBackUrl:{}", org.apache.catalina.util.URLEncoder.DEFAULT.encode(callBackUrl,StandardCharsets.UTF_8));*/
     }
 }
