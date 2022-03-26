@@ -79,11 +79,11 @@ log:
   url: C:/logs/demo
 
 #minio文件服务
-#minio:
-#  url: http://127.0.0.1:9000
-#  accessKey: minioadmin
-#  secretKey: minioadmin
-#  bucketName: hbq
+minio:
+  endpoint: https://minio.huijia.cf/
+  accessKey: admin
+  secretKey: HBQ521521cf*
+  bucketName: file
 
 elasticsearch:
   host: es.tinggeili.checheguanjia.com

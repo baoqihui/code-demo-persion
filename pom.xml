@@ -305,7 +305,7 @@
         <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
-            <version>7.0.2</version>
+            <version>8.0.3</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.samba.jcifs/jcifs -->
         <dependency>
