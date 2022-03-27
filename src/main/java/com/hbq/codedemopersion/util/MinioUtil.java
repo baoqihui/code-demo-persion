@@ -1,5 +1,7 @@
 package com.hbq.codedemopersion.util;
 
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import io.minio.*;
@@ -131,7 +133,7 @@ public class MinioUtil {
                     .bucket(bucketName)
                     .object(fileName)
                     .stream(inputStream, file.getSize(), -1)
-                    .contentType(file.getContentType())
+                    .contentType(FileUtil.getMimeType(fileName))
                     .build();
             //文件名称相同会覆盖
             minioClient.putObject(objectArgs);
@@ -152,8 +154,9 @@ public class MinioUtil {
      */
     public static String uploadPreview(String bucketName, MultipartFile file) throws IOException {
         String originalFilename = file.getOriginalFilename();
-        upload(bucketName, originalFilename, file, file.getInputStream());
-        return preview(bucketName, originalFilename);
+        String newFileName = String.format("%s-%s.%s", FileUtil.mainName(originalFilename), IdUtil.simpleUUID(), FileUtil.extName(originalFilename));
+        upload(bucketName, newFileName, file, file.getInputStream());
+        return preview(bucketName, newFileName);
     }
 
     /**
@@ -171,7 +174,9 @@ public class MinioUtil {
                     .method(Method.GET)
                     .build();
             String url = minioClient.getPresignedObjectUrl(build);
-            return StrUtil.subBefore(url, "?", false);
+            String finalUrl = StrUtil.subBefore(url, "?", false);
+            log.info("文件路径预览：{}", finalUrl);
+            return finalUrl;
         } catch (Exception e) {
             e.printStackTrace();
         }

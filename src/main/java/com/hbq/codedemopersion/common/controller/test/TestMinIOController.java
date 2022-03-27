@@ -35,7 +35,6 @@ public class TestMinIOController {
     @PostMapping("/upload")
     public String MinIOUpload(String bucketName, MultipartFile file) throws Exception {
         return MinioUtil.uploadPreview(bucketName, file);
-
     }
 
     @ApiOperation(value = "下载文件")
