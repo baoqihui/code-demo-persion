@@ -84,7 +84,7 @@ minio:
   accessKey: admin
   secretKey: HBQ521521cf*
   bucketName: file
-
+#es
 elasticsearch:
   host: es.tinggeili.checheguanjia.com
   port: 80
