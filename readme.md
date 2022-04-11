@@ -7,6 +7,7 @@
 cd wms
 npm install
 npm run serve
+npm run build
 ```
 
 + SYSTEM(所有操作权限) 账号：001 密码：001 

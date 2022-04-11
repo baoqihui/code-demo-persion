@@ -1,6 +1,6 @@
 <template>
   <div id="welcome">
-    <h1>欢迎使用振而达 I_WMS 系统</h1>
+    <h1>Hello World!</h1>
   </div>
 </template>
 
