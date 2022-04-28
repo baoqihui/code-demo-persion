@@ -1,8 +1,17 @@
 package com.hbq.codedemopersion.util;
 
+import cn.hutool.core.convert.Convert;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.RedisPassword;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.StringRedisConnection;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -15,15 +24,36 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Redis 工具类
+ *
+ * @author hbq
  */
 @Component
+@Data
+@Slf4j
+@NoArgsConstructor
 public class RedisUtils {
+	@Value("${spring.redis.host}")
+	private String host;
+
+	@Value("${spring.redis.password}")
+	private String password;
+
+	@Value("${spring.redis.port}")
+	private int port;
+
+	@Value("${spring.redis.database}")
+	private int database;
 
 	@Resource
 	private StringRedisTemplate stringRedisTemplate;
 
-	// Key（键），简单的key-value操作
-
+	public RedisUtils(String host, String password, int port, String database) {
+		this.host = host;
+		this.password = password;
+		this.port = port;
+		this.database = Convert.toInt(database);
+		this.stringRedisTemplate = getTemTemplate();
+	}
 	/**
 	 * 实现命令：TTL key，以秒为单位，返回给定 key的剩余生存时间(TTL, time to live)。
 	 *
@@ -42,6 +72,15 @@ public class RedisUtils {
 	 */
 	public void expire(String key, long timeout) {
 		stringRedisTemplate.expire(key, timeout, TimeUnit.SECONDS);
+	}
+
+	/**
+	 * 是否存在key
+	 *
+	 * @param key
+	 */
+	public Boolean hasKey(String key) {
+		return stringRedisTemplate.hasKey(key);
 	}
 
 	/**
@@ -87,8 +126,7 @@ public class RedisUtils {
 	 *
 	 * @param key
 	 * @param value
-	 * @param timeout
-	 *            （以秒为单位）
+	 * @param timeout （以秒为单位）
 	 */
 	public void set(String key, String value, long timeout) {
 		stringRedisTemplate.opsForValue().set(key, value, timeout, TimeUnit.SECONDS);
@@ -106,6 +144,7 @@ public class RedisUtils {
 
 	/**
 	 * 批量查询，对应mget
+	 *
 	 * @param keys
 	 * @return
 	 */
@@ -115,6 +154,7 @@ public class RedisUtils {
 
 	/**
 	 * 批量查询，管道pipeline
+	 *
 	 * @param keys
 	 * @return
 	 */
@@ -123,7 +163,7 @@ public class RedisUtils {
 		List<Object> result = stringRedisTemplate.executePipelined(new RedisCallback<String>() {
 			@Override
 			public String doInRedis(RedisConnection connection) throws DataAccessException {
-				StringRedisConnection src = (StringRedisConnection)connection;
+				StringRedisConnection src = (StringRedisConnection) connection;
 
 				for (String k : keys) {
 					src.get(k);
@@ -214,4 +254,107 @@ public class RedisUtils {
 		return stringRedisTemplate.opsForList().rightPush(key, value);
 	}
 
+	/**
+	 * 实现命令：RPOP key，移除并返回列表最右边的元素。
+	 *
+	 * @param key
+	 * @return 列表key的最右边元素。
+	 */
+	public String rpop(String key) {
+		return (String) stringRedisTemplate.opsForList().rightPop(key);
+	}
+
+	/**
+	 * 实现命令：LINDEX key index
+	 *
+	 * @return index对应的值
+	 */
+	public String lindex(String key, Integer index) {
+		return stringRedisTemplate.opsForList().index(key, index);
+	}
+
+	/**
+	 * 实现命令：LTRIM key start end 修剪list
+	 * 清空list：ltrim key 1 0（ltrim key start end 中的start要比end大即可，数值且都为正数。）
+	 */
+	public void ltrim(String key, Long start, Long end) {
+		stringRedisTemplate.opsForList().trim(key, start, end);
+	}
+
+
+	/**
+	 * 实现命令：LLEN key 获取list长度
+	 */
+	public Long llen(String key) {
+		return stringRedisTemplate.opsForList().size(key);
+	}
+
+	/**
+	 * 如果key不存在那么放入value
+	 *
+	 * @param key
+	 * @param value
+	 * @param timeout
+	 * @return boolean
+	 * @return void
+	 * @author yabin.zhang
+	 * @date 2021/11/30 14:04
+	 */
+	public Boolean setnx(String key, String value, long timeout) {
+		return stringRedisTemplate.opsForValue().setIfAbsent(key, value, timeout, TimeUnit.SECONDS);
+	}
+
+	/**
+	 * 向set中添加元素
+	 *
+	 * @param key   set的key
+	 * @param value set的value
+	 */
+	public void sAdd(String key, String value) {
+		stringRedisTemplate.opsForSet().add(key, value);
+	}
+
+	/**
+	 * set中所有数据
+	 *
+	 * @param key set的key
+	 * @return set中所有数据
+	 */
+	public Set<String> sMembers(String key) {
+		return stringRedisTemplate.opsForSet().members(key);
+	}
+
+	/**
+	 * 删除并返回set中的一个元素
+	 *
+	 * @param key set的key
+	 * @return set中的一个元素
+	 */
+	public String sPop(String key) {
+		return stringRedisTemplate.opsForSet().pop(key);
+	}
+
+	/**
+	 * 获取key的大小
+	 *
+	 * @param key set的key
+	 * @return key的大小
+	 */
+	public Long sCard(String key) {
+		return stringRedisTemplate.opsForSet().size(key);
+	}
+
+	public StringRedisTemplate getTemTemplate(){
+		// 构建工厂对象
+		RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
+		config.setDatabase(this.database);
+		config.setHostName(host);
+		config.setPort(port);
+		config.setPassword(RedisPassword.of(password));
+		LettuceConnectionFactory factory = new LettuceConnectionFactory(config,
+				LettucePoolingClientConfiguration.builder().build());
+		// 重新初始化工厂
+		factory.afterPropertiesSet();
+		return new StringRedisTemplate(factory);
+	}
 }

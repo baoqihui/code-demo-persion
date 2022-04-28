@@ -8,28 +8,23 @@ import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.StreamProgress;
-import cn.hutool.core.net.URLEncoder;
-import cn.hutool.core.net.url.UrlBuilder;
-import cn.hutool.core.net.url.UrlPath;
-import cn.hutool.core.util.*;
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.ReUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.hbq.codedemopersion.util.User;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 public class HutoolTest {
     public static void main(String[] args) {
+        String s2 = JSONUtil.toJsonStr(new User("aaa", "bbb", null));
+        System.out.println(s2);
 
+        List<String> betweenDates = getBetweenDates(null,DateUtil.parse("2022-04-01 12:59:59", DatePattern.NORM_DATE_PATTERN), new Date(), new ArrayList<>(10));
         log.info("-------------新建------------");
         List<Integer> l1 = ListUtil.of(1, 2);
         log.info("新建list并赋值:{}", l1);
@@ -118,5 +113,16 @@ public class HutoolTest {
         log.info("callBackUrl:{}", callBackUrl);
         log.info("callBackUrl:{}", URLEncoder.createPathSegment().encode(callBackUrl, StandardCharsets.UTF_8));
         log.info("callBackUrl:{}", org.apache.catalina.util.URLEncoder.DEFAULT.encode(callBackUrl,StandardCharsets.UTF_8));*/
+    }
+
+    private static List<String> getBetweenDates(Date nowDate, Date startDate, Date endDate, List<String> dateStrList) {
+        nowDate = ObjectUtil.defaultIfNull(nowDate, startDate);
+        if (DateUtil.isIn(nowDate, startDate, endDate)) {
+            String format = DateUtil.format(nowDate, DatePattern.NORM_DATE_PATTERN);
+            dateStrList.add(format);
+            return getBetweenDates(DateUtil.offsetDay(nowDate, 1), startDate, endDate, dateStrList);
+        } else {
+            return dateStrList;
+        }
     }
 }

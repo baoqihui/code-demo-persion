@@ -1,5 +1,8 @@
 package com.hbq.codedemopersion.common.controller.test;
 
+import com.hbq.codedemopersion.common.model.Result;
+import com.hbq.codedemopersion.config.anno.DB;
+import com.hbq.codedemopersion.util.RedisUtils;
 import com.hbq.codedemopersion.util.manyTaskUtil.BatchAsyncUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +20,7 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,6 +42,20 @@ import java.util.concurrent.TimeUnit;
 public class CommonTest {
     private RestHighLevelClient restHighLevelClient;
     private BatchAsyncUtil asyncTest;
+
+    private RedisUtils redisUtils;
+    @DB
+    private RedisUtils redisUtils2;
+    @DB("${spring.redis.database2}")
+    private RedisUtils redisUtils3;
+
+    @GetMapping("/redis")
+    public Result test() {
+        redisUtils.set("helloBoy1", "helloBoy");
+        redisUtils2.set("helloBoy2", "helloBoy");
+        redisUtils3.set("helloBoy3", "helloBoy");
+        return Result.succeed("保存成功，请查看redis中的数据");
+    }
 
     /**
      * 测试异步请求
