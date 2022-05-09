@@ -77,13 +77,6 @@ shiro:
 log:
   url: /out/logs/demo
 
-#minio文件服务
-minio:
-  endpoint: https://minio.huijia.cf/
-  accessKey: admin
-  secretKey: HBQ521521cf*
-  bucketName: file
-
 #es
 elasticsearch:
   host: es.tinggeili.checheguanjia.com

@@ -1,32 +1,33 @@
 package com.hbq.codedemopersion.common.controller;
 
+import com.hbq.codedemopersion.common.model.MessageDTO;
 import com.hbq.codedemopersion.common.model.Result;
 import com.hbq.codedemopersion.util.BufferImage;
+import com.hbq.codedemopersion.util.MessageUtil;
 import com.hbq.codedemopersion.util.OssUploadImage;
-import com.hbq.codedemopersion.util.ToolNote;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 
-@RestController
 @Api(tags = "公共方法")
+@AllArgsConstructor
 public class CommonController {
-    @Autowired
     private OssUploadImage ossUploadImage;
-
+    private MessageUtil messageUtil;
 
     /**
      * 上传图片到 oss
@@ -38,33 +39,23 @@ public class CommonController {
     public String uploadImgToOSS(MultipartFile imgFile) {
         return ossUploadImage.uploadImg(imgFile);
     }
-    /**
-     * 发送短信
-     * @param tel   手机号
-     * @param session   设置验证码过期时间
-     * @return
-     */
+
+
     @ApiOperation(value = "发送短信")
-    @PostMapping(value="/sendMessage")
-    public Result sendMessage(String tel, HttpSession session){
-        System.out.println(tel);
-        if(tel==null){
-            return Result.failed("请输入手机号");
-        }else if(tel.equals("")||tel.length()!=11){
-            return  Result.failed("手机号有误");
+    @PostMapping(value="/send")
+    public Result sendMessage(@Valid @RequestBody MessageDTO messageDTO){
+        messageUtil.sendMessage(messageDTO.getTel());
+        return Result.succeed("发送成功");
+    }
+
+    @ApiOperation(value = "验证短信验证码")
+    @PostMapping(value="/check")
+    public Result checkMessage(@Valid @RequestBody MessageDTO messageDTO){
+        if(messageUtil.isCode(messageDTO.getTel(),messageDTO.getCode())){
+            return Result.succeed("短信验证成功");
+        }else{
+            return Result.failed("短信验证失败");
         }
-        Object ytel=session.getAttribute(tel);
-        if(tel.equals(ytel)){
-            return  Result.failed( "60s内重复发送");
-        }
-        String code= ToolNote.getNote(tel);
-        if(code!=null){
-            session.setAttribute("tel", tel);
-            session.setMaxInactiveInterval(60);
-            session.setAttribute("code", code);
-            return  Result.succeed(code,"发送成功");
-        }
-        return Result.failed("获取出错");
     }
     /**
      * 图片验证码

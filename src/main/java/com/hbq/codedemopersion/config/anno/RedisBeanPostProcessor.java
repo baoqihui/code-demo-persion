@@ -58,6 +58,6 @@ public class RedisBeanPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessAfterInitialization(Object o, String s) throws BeansException {
-        return o; //这里要返回o，不然启动时会报错
+        return o;
     }
 }

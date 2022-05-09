@@ -9,3 +9,18 @@ spring:
   profiles:
     active: "@profileActive@"
 
+#minio文件服务
+minio:
+  endpoint: https://minio.service.cf/
+  accessKey: admin
+  secretKey: HBQ521521cf*
+  bucketName: file
+
+#阿里短息配置
+ali:
+  endpoint: dysmsapi.aliyuncs.com
+  accessKey: LTAI5tRbCbT6gBMVburLDkC4
+  secretKey: BQsHbBTpPkjSFQdCg1N3h9Q2cbTl1M
+  signName: IDSE
+  templateCode: SMS_241066375
+  expireTime: 300
