@@ -9,7 +9,6 @@ import java.lang.annotation.*;
  */
 @Target({ElementType.FIELD,ElementType.CONSTRUCTOR}) //声明应用在属性上
 @Retention(RetentionPolicy.RUNTIME) //运行期生效
-@Documented //Java Doc
 @Component
 public @interface DB {
     String value() default "";

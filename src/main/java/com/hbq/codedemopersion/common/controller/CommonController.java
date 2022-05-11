@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -79,11 +78,5 @@ public class CommonController {
         OutputStream os = res.getOutputStream();
         ImageIO.write(img, "png", os);
         os.close();
-    }
-    @PostMapping(value="/userLogout")
-    @ResponseBody
-    public Result userLogout(HttpSession session){
-        session.removeAttribute("user");
-        return Result.succeed("退出成功");
     }
 }

@@ -263,7 +263,15 @@ public class RedisUtils {
 	public String rpop(String key) {
 		return (String) stringRedisTemplate.opsForList().rightPop(key);
 	}
-
+	/**
+	 * 实现命令：BRPOP key，移除并返回列表最右边的元素,阻塞时间。
+	 *
+	 * @param key
+	 * @return 列表key的最右边元素。
+	 */
+	public String brpop(String key, Long timeout, TimeUnit unit) {
+		return stringRedisTemplate.opsForList().rightPop(key, timeout, unit);
+	}
 	/**
 	 * 实现命令：LINDEX key index
 	 *

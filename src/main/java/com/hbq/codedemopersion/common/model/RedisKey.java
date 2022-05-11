@@ -7,4 +7,5 @@ package com.hbq.codedemopersion.common.model;
  */
 public class RedisKey {
     public static final String MESSAGE_KEY = "msg:%s";
+    public static final String  REDIS_MESSAGE_LIST_KEY = "list:msg";
 }

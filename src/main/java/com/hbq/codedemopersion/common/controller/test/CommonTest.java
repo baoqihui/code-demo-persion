@@ -1,9 +1,12 @@
 package com.hbq.codedemopersion.common.controller.test;
 
+import cn.hutool.core.util.RandomUtil;
+import com.hbq.codedemopersion.common.model.RedisKey;
 import com.hbq.codedemopersion.common.model.Result;
 import com.hbq.codedemopersion.config.anno.DB;
 import com.hbq.codedemopersion.util.RedisUtils;
 import com.hbq.codedemopersion.util.manyTaskUtil.BatchAsyncUtil;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.search.SearchRequest;
@@ -49,11 +52,19 @@ public class CommonTest {
     @DB("${spring.redis.database2}")
     private RedisUtils redisUtils3;
 
+    @ApiOperation("测试redis多数据源配置")
     @GetMapping("/redis")
-    public Result test() {
+    public Result redis() {
         redisUtils.set("helloBoy1", "helloBoy");
         redisUtils2.set("helloBoy2", "helloBoy");
         redisUtils3.set("helloBoy3", "helloBoy");
+        return Result.succeed("保存成功，请查看redis中的数据");
+    }
+
+    @ApiOperation("测试redis发送队列消息")
+    @GetMapping("/sendMessage/redis")
+    public Result test() {
+        redisUtils.lpush(RedisKey.REDIS_MESSAGE_LIST_KEY, "helloBoy"+ RandomUtil.randomString(1));
         return Result.succeed("保存成功，请查看redis中的数据");
     }
 
