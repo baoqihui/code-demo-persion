@@ -5,10 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -54,6 +51,17 @@ public class TestMinIOController {
     public List<String> list(String bucketName) {
         return MinioUtil.listObjectNames(bucketName);
     }
+    @ApiOperation(value = "获取当前文件夹下url")
+    @PostMapping("/urls")
+    public List<String> urls(String bucketName) {
+        return MinioUtil.listObjectUrls(bucketName);
+    }
+    @ApiOperation(value = "随机获取一个url")
+    @GetMapping("/random")
+    public String random(String bucketName) {
+        return MinioUtil.random(bucketName);
+    }
+
 
 }
 

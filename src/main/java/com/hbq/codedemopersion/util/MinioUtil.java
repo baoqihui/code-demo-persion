@@ -3,6 +3,7 @@ package com.hbq.codedemopersion.util;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import io.minio.*;
 import io.minio.http.Method;
@@ -41,6 +42,8 @@ public class MinioUtil {
     private String secretKey;
     @Value("${minio.bucketName}")
     private String bucketName;
+
+
 
     @PostConstruct
     public void init() {
@@ -253,6 +256,29 @@ public class MinioUtil {
         }
     }
 
+    /**
+     * 所有文件url
+     * @param bucketName
+     * @return
+     */
+    public static List<String> listObjectUrls(String bucketName) {
+        List<Item> items = listObjects(bucketName);
+        if (ObjectUtil.isEmpty(items)) {
+            return new ArrayList<>();
+        } else {
+            return items.stream()
+                    .map(i-> preview(bucketName,i.objectName()))
+                    .collect(Collectors.toList());
+        }
+    }
+
+    /**
+     * 随机获取一个文件
+     */
+    public static String random(String bucketName) {
+        List<String> urls = listObjectUrls(bucketName);
+        return urls.get(RandomUtil.randomInt(urls.size()));
+    }
     /**
      * 删除
      *
