@@ -4,7 +4,6 @@ import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.net.url.UrlBuilder;
 import cn.hutool.core.net.url.UrlPath;
-import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import com.hbq.codedemopersion.common.model.DingDingBot;
@@ -18,7 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -89,7 +88,7 @@ public class ScheduledController {
      */
     @Scheduled(cron = "0 0 10-18/2 * * 1-5")
     @ApiOperation(value = "发送发送钉钉消息")
-    @PostMapping("/ding/send")
+    @GetMapping("/ding/send")
     public Result dingSend() {
         //钉钉签名
         DingDingBot dingDingBot = AssetUtil.dingDingSign();
@@ -100,10 +99,7 @@ public class ScheduledController {
         String imgBody = HttpUtil.get(" https://api.ixiaowai.cn/gqapi/gqapi.php?return=json");
         String imgUrl = new JSONObject(imgBody).getStr("imgurl");
         //喝水的次数
-        String drink = String.format(RedisKey.DRINK_COUNT_KEY, DateUtil.format(DateUtil.date(), DatePattern.NORM_DATE_PATTERN));
-        String drinkCount = redisUtils.get(drink);
-        redisUtils.incr(drink, 1);
-        drinkCount = ObjectUtil.defaultIfNull(drinkCount, "1");
+        long drinkCount = redisUtils.incr(String.format(RedisKey.DRINK_COUNT_KEY, DateUtil.format(DateUtil.date(), DatePattern.NORM_DATE_PATTERN)), 1);
         //恋爱的天数
         long day = DateUtil.betweenDay(DateUtil.parse("2021-10-01"), DateUtil.date(), false);
         String url = UrlBuilder
