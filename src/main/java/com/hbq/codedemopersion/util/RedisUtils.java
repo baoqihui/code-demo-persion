@@ -14,6 +14,7 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -322,6 +323,18 @@ public class RedisUtils {
 		stringRedisTemplate.opsForSet().add(key, value);
 	}
 
+	public void zsAdd(String key, String value,double score) {
+		stringRedisTemplate.opsForZSet().add(key,value,score);
+	}
+
+	public Map<String,Object> zsMembers(String key, long score0,long score1) {
+		Set<ZSetOperations.TypedTuple<String>> tuples  = stringRedisTemplate.opsForZSet().rangeWithScores(key, score0, score1);
+		ZSetOperations.TypedTuple<String> o = (ZSetOperations.TypedTuple<String>)tuples.toArray()[0];
+		return Map.of("source",o.getScore(),"value",o.getValue());
+	}
+	public void zrem(String key,String value) {
+		stringRedisTemplate.opsForZSet().remove(key,value);
+	}
 	/**
 	 * set中所有数据
 	 *

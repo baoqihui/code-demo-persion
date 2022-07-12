@@ -4,6 +4,7 @@ import cn.hutool.core.util.RandomUtil;
 import com.hbq.codedemopersion.common.model.RedisKey;
 import com.hbq.codedemopersion.common.model.Result;
 import com.hbq.codedemopersion.config.anno.DB;
+import com.hbq.codedemopersion.util.RedisDelayQueueUtil;
 import com.hbq.codedemopersion.util.RedisUtils;
 import com.hbq.codedemopersion.util.manyTaskUtil.BatchAsyncUtil;
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +34,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import static com.hbq.codedemopersion.common.model.RedisDelayQueueEnum.ORDER_PAYMENT_TIMEOUT;
+
 /**
  * @Author: huibq
  * @Description: ElasticSearch测试类
@@ -52,6 +56,8 @@ public class CommonTest {
     @DB("${spring.redis.database2}")
     private RedisUtils redisUtils3;
 
+    private RedisDelayQueueUtil redisDelayQueueUtil;
+
     @ApiOperation("测试redis多数据源配置")
     @GetMapping("/redis")
     public Result redis() {
@@ -64,7 +70,15 @@ public class CommonTest {
     @ApiOperation("测试redis发送队列消息")
     @GetMapping("/sendMessage/redis")
     public Result test() {
-        redisUtils.lpush(RedisKey.REDIS_MESSAGE_LIST_KEY, "helloBoy"+ RandomUtil.randomString(1));
+        redisUtils.lpush(RedisKey.REDIS_MESSAGE_LIST_KEY, "helloBoy" + RandomUtil.randomString(1));
+        redisUtils.zsAdd("aa", "heihei", 10);
+        return Result.succeed("保存成功，请查看redis中的数据");
+    }
+
+    @ApiOperation("测试redis发送队列消息")
+    @GetMapping("/redis/delay")
+    public Result testDelay(String order) {
+        redisDelayQueueUtil.addDelayQueue(order, 60, TimeUnit.SECONDS, ORDER_PAYMENT_TIMEOUT.getCode());
         return Result.succeed("保存成功，请查看redis中的数据");
     }
 
@@ -72,24 +86,25 @@ public class CommonTest {
      * 测试异步请求
      */
     @PostMapping("/async")
-    public void testAsync(){
+    public void testAsync() {
         long startTime = System.currentTimeMillis();
-        List<Integer> list=new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
         for (int i = 1; i <= 100; i++) {
             list.add(i);
         }
         asyncTest.batchExecAsync(list);
         long endTime = System.currentTimeMillis();
-        log.info("主程序执行线程{}，耗时{}ms" ,Thread.currentThread().getName(),(endTime-startTime));
+        log.info("主程序执行线程{}，耗时{}ms", Thread.currentThread().getName(), (endTime - startTime));
     }
 
 
     /**
      * 获取es中token
+     *
      * @return token
      */
     @PostMapping("/getWxTokenFormES")
-    public String getTokenFormElasticSearch(){
+    public String getTokenFormElasticSearch() {
         SearchRequest searchRequest = new SearchRequest("prod-tinggeili-scheduletask-*");
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
         sourceBuilder.query(QueryBuilders.simpleQueryStringQuery("WxPlatformToken"));
@@ -107,7 +122,7 @@ public class CommonTest {
         SearchHit[] hits1 = hits.getHits();
         Map<String, Object> sourceAsMap = hits1[0].getSourceAsMap();
         Object message = sourceAsMap.get("message");
-        log.info("从es中获取到：{}",sourceAsMap.get("message").toString());
+        log.info("从es中获取到：{}", sourceAsMap.get("message").toString());
         return message.toString();
     }
 

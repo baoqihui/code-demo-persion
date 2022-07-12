@@ -4,10 +4,9 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.convert.Convert;
-import cn.hutool.core.date.DateField;
-import cn.hutool.core.date.DatePattern;
-import cn.hutool.core.date.DateTime;
-import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.*;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
@@ -16,6 +15,8 @@ import cn.hutool.json.JSONUtil;
 import com.hbq.codedemopersion.util.User;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.File;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Slf4j
@@ -24,7 +25,7 @@ public class HutoolTest {
         String s2 = JSONUtil.toJsonStr(new User("aaa", "bbb", null));
         System.out.println(s2);
 
-        List<String> betweenDates = getBetweenDates(null,DateUtil.parse("2022-04-01 12:59:59", DatePattern.NORM_DATE_PATTERN), new Date(), new ArrayList<>(10));
+        List<String> betweenDates = getBetweenDates(null, DateUtil.parse("2022-04-01 12:59:59", DatePattern.NORM_DATE_PATTERN), new Date(), new ArrayList<>(10));
         log.info("-------------新建------------");
         List<Integer> l1 = ListUtil.of(1, 2);
         log.info("新建list并赋值:{}", l1);
@@ -109,10 +110,19 @@ public class HutoolTest {
                 .setScheme("https")
                 .setHost(host)
                 .setPath(UrlPath.of("/api/v2.0/wechatApp/subscribeMessage/callback", StandardCharsets.UTF_8))
+                .setParam("appid", "wx8f4c2621011e4145")
                 .build();
         log.info("callBackUrl:{}", callBackUrl);
         log.info("callBackUrl:{}", URLEncoder.createPathSegment().encode(callBackUrl, StandardCharsets.UTF_8));
         log.info("callBackUrl:{}", org.apache.catalina.util.URLEncoder.DEFAULT.encode(callBackUrl,StandardCharsets.UTF_8));*/
+        log.info("-------------文件------------");
+        String context = "132456";
+        //保存文件到本地
+        String fileName = String.format("%s.json", IdUtil.simpleUUID()
+                + "-" + LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN));
+        File file = FileUtil.file("./claim-case-message", fileName);
+        FileUtil.writeUtf8String(context, file);
+        log.info("风控理赔案件信息保存到本地文件{}中！", file.getPath());
     }
 
     private static List<String> getBetweenDates(Date nowDate, Date startDate, Date endDate, List<String> dateStrList) {

@@ -1,5 +1,8 @@
 package com.hbq.codedemopersion.common.controller.test;
 
+import cn.hutool.core.collection.CollUtil;
+import com.hbq.codedemopersion.common.model.F;
+import com.hbq.codedemopersion.common.model.S;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -79,5 +82,40 @@ public class StreamAndLambdaTest {
                 .stream().map(AutoModel::getName)
                 .collect(Collectors.joining(",", "[", "]"))
         ;
+        HashSet<S> s1 = new HashSet<>();
+        s1.add(S.builder().name("s1").build());
+        s1.add(S.builder().name("s2").build());
+
+        HashSet<S> s2 = new HashSet<>();
+        s2.add(S.builder().name("s2").build());
+        s2.add(S.builder().name("s3").build());
+        HashSet<S> s3 = new HashSet<>();
+        s3.add(S.builder().name("s2").build());
+        s3.add(S.builder().name("s3").build());
+        F f1 = F.builder().name("f1").password("p1").age(500).s(s1).build();
+        F f2 = F.builder().name("f1").password("p1").age(600).s(s2).build();
+        F f3 = F.builder().name("f2").age(500).s(s3).build();
+        List<F> orgList = List.of(f1, f2, f3);
+        log.info("原集合:{}", orgList);
+        List<F> nowList = new ArrayList<>(orgList.stream().collect(
+                Collectors.toMap(F::fetchGroupKey, a -> a, (o1, o2) -> {
+                    // 2.将重复的 o1与o2, Value属性求和, 赋值给o1，最后返回o1
+                    o1.setAge(o1.getAge() + o2.getAge());
+                    //合并set
+                    CollUtil.addAll(o1.getS(), o2.getS());
+                    return o1;
+                })).values())
+                .stream()
+                .peek(a-> a.setAge2(getString(a.getAge())))
+                .collect(Collectors.toList());
+        log.info("现集合:{}", nowList);
+    }
+
+    static String getString(Integer i) {
+        if (i < 1000) {
+            return "1000以下";
+        }
+        int y = i / 1000;
+        return y * 1000 + "-" + (y + 1) * 1000;
     }
 }
