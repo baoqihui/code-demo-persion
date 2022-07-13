@@ -1,16 +1,8 @@
 package com.hbq.codedemopersion.common.controller.test;
 
-import cn.hutool.core.date.DatePattern;
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.net.url.UrlBuilder;
-import cn.hutool.core.net.url.UrlPath;
-import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
-import com.hbq.codedemopersion.common.model.DingDingBot;
-import com.hbq.codedemopersion.common.model.RedisKey;
 import com.hbq.codedemopersion.common.model.Result;
-import com.hbq.codedemopersion.util.AssetUtil;
-import com.hbq.codedemopersion.util.RedisUtils;
+import com.hbq.codedemopersion.util.DingUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -20,8 +12,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.nio.charset.StandardCharsets;
 
 /**
  * @Author: hbq
@@ -35,8 +25,8 @@ import java.nio.charset.StandardCharsets;
 @RequestMapping("test")
 @AllArgsConstructor
 public class ScheduledController {
-    private RedisUtils redisUtils;
 
+    private final DingUtil dingUtil;
     /**
      * 示例
      * 每隔5秒执行一次：*\/5****?
@@ -58,7 +48,7 @@ public class ScheduledController {
      * 6 	周 	    是 	    1-7 or SUN-SAT 	, - * ? / L #
      * 7 	年 	    否 	    1970-2099 	    , - * /
      */
-/*    @Scheduled(cron = "0 * * * *")
+    /*    @Scheduled(cron = "0 * * * *")
     @ApiOperation(value = "发送邮件测试")
     @PostMapping("/mail/send")
     public Result send() {
@@ -79,54 +69,125 @@ public class ScheduledController {
      * curl --location --request POST 'https://oapi.dingtalk.com/robot/send?access_token=aab19ac6aad2244f54059904f86092f6a11c069784ab80496d564bbcd30ce829&timestamp=1657604878962&sign=kZaUjj8VK%2F7A2NV7BzOtiTQavy293CvYGqK4%2FXpfN1Q%3D' \
      * --header 'Content-Type: application/json' \
      * --data-raw '{
-     *     "msgtype": "text",
-     *     "text": {
-     *         "content": "消息消息消息"
-     *     }
+     * "msgtype": "text",
+     * "text": {
+     * "content": "消息消息消息"
+     * }
      * }'
+     *
      * @return
      */
-    @Scheduled(cron = "0 0 10-18/2 * * 1-5")
-    @ApiOperation(value = "发送发送钉钉消息")
-    @GetMapping("/ding/send")
-    public Result dingSend() {
-        //钉钉签名
-        DingDingBot dingDingBot = AssetUtil.dingDingSign();
-        //彩虹屁
-        String caiHongPiBody = HttpUtil.get("https://api.shadiao.app/chp");
-        String caiHongPi = new JSONObject(new JSONObject(caiHongPiBody).get("data")).getStr("text");
-        //随机风景图
-        String imgBody = HttpUtil.get(" https://api.ixiaowai.cn/gqapi/gqapi.php?return=json");
-        String imgUrl = new JSONObject(imgBody).getStr("imgurl");
-        //喝水的次数
-        long drinkCount = redisUtils.incr(String.format(RedisKey.DRINK_COUNT_KEY, DateUtil.format(DateUtil.date(), DatePattern.NORM_DATE_PATTERN)), 1);
-        //恋爱的天数
-        long day = DateUtil.betweenDay(DateUtil.parse("2021-10-01"), DateUtil.date(), false);
-        String url = UrlBuilder
-                .create()
-                .setScheme("https")
-                .setHost("oapi.dingtalk.com")
-                .setPath(UrlPath.of("/robot/send", StandardCharsets.UTF_8))
-                .addQuery("access_token", "aab19ac6aad2244f54059904f86092f6a11c069784ab80496d564bbcd30ce829")
-                .addQuery("timestamp", dingDingBot.getTimestamp())
-                .addQuery("sign", dingDingBot.getSign())
-                .build();
+    @Scheduled(cron = "0 0 10,12,14,16,18 * * 1-5")
+    @ApiOperation(value = "宝宝，要喝水喽！")
+    @GetMapping("/ding/drink")
+    public Result drink() {
+        long drinkConut = dingUtil.drinkCount();
         JSONObject body = new JSONObject()
                 .set("msgtype", "markdown")
                 .set("markdown", new JSONObject()
                         .set("title", "宝宝，要喝水喽！")
-                        .set("text", String.format("## 宝宝，今天第%s次喝水喽！\n" +
-                                        "![](%s)\n" +
-                                        "- %s\n" +
-                                        "- 今日喝水**%s**次喽，多喝水，多休息！\n" +
-                                        "- 我们已经恋爱**%s**天啦\n",
-                                drinkCount,
-                                imgUrl,
-                                caiHongPi,
-                                drinkCount,
-                                day)))
+                        .set("text", String.format(
+                                "## 宝宝，今天第%s次喝水喽！\n" +
+                                "![](%s)\n" +
+                                "- %s\n" +
+                                "- 今日喝水**%s**次喽，多喝水，多休息！\n",
+                                drinkConut,
+                                dingUtil.imgUrl(),
+                                dingUtil.caiHongPi(),
+                                drinkConut)))
                 .set("at", new JSONObject().set("isAtAll", true));
-        String result = HttpUtil.post(url, body.toString());
-        return Result.succeed(result);
+        String msg = dingUtil.send(body);
+        log.info("[宝宝，要喝水喽!]消息发送结果：{}", msg);
+        return Result.succeed(msg);
+    }
+
+    /**
+     * 下班提醒
+     * 周一-周五下午5:20提醒
+     *
+     * @return
+     */
+    @Scheduled(cron = "0 20 17,18 * * 1-5")
+    @ApiOperation(value = "宝宝，要下班喽！")
+    @GetMapping("/ding/offDuty")
+    public Result offDuty() {
+        JSONObject body = new JSONObject()
+                .set("msgtype", "markdown")
+                .set("markdown", new JSONObject()
+                        .set("title", "宝宝，要下班喽！")
+                        .set("text", String.format(
+                                "## 宝宝，要下班喽！\n" +
+                                "![](%s)\n" +
+                                "- 下班啦！下班啦！不要忘了提交日志哦！\n" +
+                                "- 回家路上要慢点，到家了及时报备哦，不然人家会担心的！\n", dingUtil.imgUrl())))
+                .set("at", new JSONObject().set("isAtAll", true));
+        String msg = dingUtil.send(body);
+        log.info("[宝宝，要下班喽！]消息发送结果：{}", msg);
+        return Result.succeed(msg);
+    }
+
+    /**
+     * 恋爱天数提醒
+     * 每天8:30
+     */
+    @Scheduled(cron = "0 30 8 * * *")
+    @ApiOperation(value = "宝宝，恋爱n天喽！")
+    @GetMapping("/ding/love")
+    public Result love() {
+        JSONObject body = new JSONObject()
+                .set("msgtype", "markdown")
+                .set("at", new JSONObject().set("isAtAll", true));
+        //周年纪念提醒，连发三次
+        if (dingUtil.isAnniversary()) {
+            body = new JSONObject()
+                    .set("markdown", new JSONObject()
+                            .set("title", "宝宝，恋爱n天喽！")
+                            .set("text", String.format(
+                                    "## 宝宝，%s周年纪念哦！\n" +
+                                    "![](%s)\n" +
+                                    "- %s\n" +
+                                    "- 恋爱**%s**周年，有了你，这世间疾苦烟消云散！\n",
+                                    dingUtil.loveYear(),
+                                    dingUtil.imgUrl(),
+                                    dingUtil.caiHongPi(),
+                                    dingUtil.loveYear()
+                            )));
+            dingUtil.send(body);
+            dingUtil.send(body);
+        } else if (dingUtil.loveDay() % 100 == 0) {
+            //百天纪念提醒，连发三次
+            body = new JSONObject()
+                    .set("markdown", new JSONObject()
+                            .set("title", "宝宝，恋爱n天喽！")
+                            .set("text", String.format(
+                                    "## 宝宝，%s天纪念哦！\n" +
+                                    "![](%s)\n" +
+                                    "- %s\n" +
+                                    "- 恋爱**%s**天，人生很长，感谢有你相伴！\n",
+                                    dingUtil.loveDay(),
+                                    dingUtil.imgUrl(),
+                                    dingUtil.caiHongPi(),
+                                    dingUtil.loveDay()
+                            )));
+            dingUtil.send(body);
+            dingUtil.send(body);
+        } else {
+            //日常恋爱提醒
+            body = body.set("markdown", new JSONObject()
+                    .set("title", "宝宝，恋爱n天喽！")
+                    .set("text", String.format(
+                            "## 宝宝，我们在一起%s天喽！\n" +
+                            "![](%s)\n" +
+                            "- %s\n" +
+                            "- 恋爱**%s**天，恋爱进度条又增加了呢！\n",
+                            dingUtil.loveDay(),
+                            dingUtil.imgUrl(),
+                            dingUtil.caiHongPi(),
+                            dingUtil.loveDay()
+                    )));
+        }
+        String msg = dingUtil.send(body);
+        log.info("[宝宝，恋爱n天喽！]消息发送结果：{}", msg);
+        return Result.succeed(msg);
     }
 }
