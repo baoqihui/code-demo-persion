@@ -141,7 +141,7 @@ public class ScheduledController {
         if (dingUtil.isAnniversary()) {
             body = new JSONObject()
                     .set("markdown", new JSONObject()
-                            .set("title", "宝宝，恋爱n天喽！")
+                            .set("title", "宝宝，" + dingUtil.loveYear() + "周年纪念哦！")
                             .set("text", String.format(
                                     "## 宝宝，%s周年纪念哦！\n" +
                                     "![](%s)\n" +
@@ -158,7 +158,7 @@ public class ScheduledController {
             //百天纪念提醒，连发三次
             body = new JSONObject()
                     .set("markdown", new JSONObject()
-                            .set("title", "宝宝，恋爱n天喽！")
+                            .set("title", "宝宝，" + dingUtil.loveDay() + "天纪念哦！")
                             .set("text", String.format(
                                     "## 宝宝，%s天纪念哦！\n" +
                                     "![](%s)\n" +
@@ -174,7 +174,7 @@ public class ScheduledController {
         } else {
             //日常恋爱提醒
             body = body.set("markdown", new JSONObject()
-                    .set("title", "宝宝，恋爱n天喽！")
+                    .set("title", "宝宝，我们在一起" + dingUtil.loveDay() + "天喽！")
                     .set("text", String.format(
                             "## 宝宝，我们在一起%s天喽！\n" +
                             "![](%s)\n" +
