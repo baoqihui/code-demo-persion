@@ -107,7 +107,7 @@ public class ScheduledController {
      *
      * @return
      */
-    @Scheduled(cron = "0 20 17,18 * * 1-5")
+    @Scheduled(cron = "0 35 17,18 * * 1-5")
     @ApiOperation(value = "宝宝，要下班喽！")
     @GetMapping("/ding/offDuty")
     public Result offDuty() {
