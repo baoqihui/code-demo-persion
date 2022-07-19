@@ -12,6 +12,7 @@ import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
+import com.hbq.codedemopersion.common.model.AutoModel;
 import com.hbq.codedemopersion.util.User;
 import lombok.extern.slf4j.Slf4j;
 

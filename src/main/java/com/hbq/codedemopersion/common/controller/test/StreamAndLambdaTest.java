@@ -1,6 +1,7 @@
 package com.hbq.codedemopersion.common.controller.test;
 
 import cn.hutool.core.collection.CollUtil;
+import com.hbq.codedemopersion.common.model.AutoModel;
 import com.hbq.codedemopersion.common.model.F;
 import com.hbq.codedemopersion.common.model.S;
 import lombok.extern.slf4j.Slf4j;

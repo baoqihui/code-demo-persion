@@ -1,4 +1,4 @@
-package com.hbq.codedemopersion.common.controller.test;
+package com.hbq.codedemopersion.common.model;
 
 
 import lombok.AllArgsConstructor;
