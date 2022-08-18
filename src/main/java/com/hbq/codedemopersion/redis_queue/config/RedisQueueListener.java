@@ -1,9 +1,9 @@
-package com.hbq.codedemopersion.listener.config;
+package com.hbq.codedemopersion.redis_queue.config;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.hbq.codedemopersion.listener.BaseQueueConsumer;
+import cn.hutool.extra.spring.SpringUtil;
+import com.hbq.codedemopersion.redis_queue.BaseQueueConsumer;
 import com.hbq.codedemopersion.util.RedisUtils;
-import com.hbq.codedemopersion.util.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.TimeUnit;
@@ -23,7 +23,7 @@ public class RedisQueueListener implements Runnable {
 
     @Override
     public void run() {
-        RedisUtils redisUtils = SpringContextUtil.getBean(RedisUtils.class);
+        RedisUtils redisUtils = SpringUtil.getBean(RedisUtils.class);
         String queueName = baseQueueConsumer.getQueueName();
         log.info("redis监听器开始监听:{}", queueName);
         while (RedisQueueConsumerContainer.isRun) {

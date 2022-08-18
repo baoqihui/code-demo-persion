@@ -1,4 +1,4 @@
-package com.hbq.codedemopersion.listener;
+package com.hbq.codedemopersion.redis_queue;
 
 /**
  * @Author: huibq

@@ -1,4 +1,4 @@
-package com.hbq.codedemopersion.listener;
+package com.hbq.codedemopersion.redis_queue;
 
 import com.hbq.codedemopersion.common.model.RedisKey;
 import lombok.extern.slf4j.Slf4j;

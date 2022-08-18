@@ -1,6 +1,6 @@
-package com.hbq.codedemopersion.listener.config;
+package com.hbq.codedemopersion.redis_queue.config;
 
-import com.hbq.codedemopersion.listener.BaseQueueConsumer;
+import com.hbq.codedemopersion.redis_queue.BaseQueueConsumer;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;

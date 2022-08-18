@@ -1,6 +1,6 @@
-package com.hbq.codedemopersion.service.impl;
+package com.hbq.codedemopersion.redis_delay_queue.impl;
 
-import com.hbq.codedemopersion.service.RedisDelayQueueHandle;
+import com.hbq.codedemopersion.redis_delay_queue.RedisDelayQueueHandle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +13,10 @@ import org.springframework.stereotype.Component;
 public class OrderTimeoutNotEvaluated implements RedisDelayQueueHandle<String> {
 	@Override
 	public void execute(String map) {
-		log.info("(收到订单超时未评价延迟消息) {}", map);
-		// TODO 订单超时未评价，系统默认好评处理业务...
- 
+		try {
+			log.info("(收到订单超时未评价延迟消息) {}", map);
+		}catch (Exception e){
+			log.error("订单超时未评价延迟消息异常,{}",e.getMessage());
+		}
 	}
 }

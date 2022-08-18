@@ -1,6 +1,6 @@
-package com.hbq.codedemopersion.listener;
+package com.hbq.codedemopersion.redis_queue;
 
-import com.hbq.codedemopersion.listener.config.RedisQueueConsumerContainer;
+import com.hbq.codedemopersion.redis_queue.config.RedisQueueConsumerContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

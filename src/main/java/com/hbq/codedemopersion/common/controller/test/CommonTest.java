@@ -1,13 +1,6 @@
 package com.hbq.codedemopersion.common.controller.test;
 
-import cn.hutool.core.util.RandomUtil;
-import com.hbq.codedemopersion.common.model.RedisKey;
-import com.hbq.codedemopersion.common.model.Result;
-import com.hbq.codedemopersion.config.anno.DB;
-import com.hbq.codedemopersion.util.RedisDelayQueueUtil;
-import com.hbq.codedemopersion.util.RedisUtils;
 import com.hbq.codedemopersion.util.manyTaskUtil.BatchAsyncUtil;
-import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.search.SearchRequest;
@@ -24,7 +17,6 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,8 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import static com.hbq.codedemopersion.common.model.RedisDelayQueueEnum.ORDER_PAYMENT_TIMEOUT;
 
 /**
  * @Author: huibq
@@ -49,38 +39,6 @@ import static com.hbq.codedemopersion.common.model.RedisDelayQueueEnum.ORDER_PAY
 public class CommonTest {
     private RestHighLevelClient restHighLevelClient;
     private BatchAsyncUtil asyncTest;
-
-    private RedisUtils redisUtils;
-    @DB
-    private RedisUtils redisUtils2;
-    @DB("${spring.redis.database2}")
-    private RedisUtils redisUtils3;
-
-    private RedisDelayQueueUtil redisDelayQueueUtil;
-
-    @ApiOperation("测试redis多数据源配置")
-    @GetMapping("/redis")
-    public Result redis() {
-        redisUtils.set("helloBoy1", "helloBoy");
-        redisUtils2.set("helloBoy2", "helloBoy");
-        redisUtils3.set("helloBoy3", "helloBoy");
-        return Result.succeed("保存成功，请查看redis中的数据");
-    }
-
-    @ApiOperation("测试redis发送队列消息")
-    @GetMapping("/sendMessage/redis")
-    public Result test() {
-        redisUtils.lpush(RedisKey.REDIS_MESSAGE_LIST_KEY, "helloBoy" + RandomUtil.randomString(1));
-        redisUtils.zsAdd("aa", "heihei", 10);
-        return Result.succeed("保存成功，请查看redis中的数据");
-    }
-
-    @ApiOperation("测试redis发送队列消息")
-    @GetMapping("/redis/delay")
-    public Result testDelay(String order) {
-        redisDelayQueueUtil.addDelayQueue(order, 60, TimeUnit.SECONDS, ORDER_PAYMENT_TIMEOUT.getCode());
-        return Result.succeed("保存成功，请查看redis中的数据");
-    }
 
     /**
      * 测试异步请求
