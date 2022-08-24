@@ -1,4 +1,4 @@
-package com.hbq.codedemopersion.common.controller.test;
+package com.hbq.codedemopersion.common.controller;
 
 import cn.hutool.json.JSONObject;
 import com.hbq.codedemopersion.common.model.Result;
@@ -139,8 +139,7 @@ public class ScheduledController {
                 .set("at", new JSONObject().set("isAtAll", true));
         //周年纪念提醒，连发三次
         if (dingUtil.isAnniversary()) {
-            body = new JSONObject()
-                    .set("markdown", new JSONObject()
+            body = body.set("markdown", new JSONObject()
                             .set("title", "宝宝，" + dingUtil.loveYear() + "周年纪念哦！")
                             .set("text", String.format(
                                     "## 宝宝，%s周年纪念哦！\n" +
@@ -156,8 +155,7 @@ public class ScheduledController {
             dingUtil.send(body);
         } else if (dingUtil.loveDay() % 100 == 0) {
             //百天纪念提醒，连发三次
-            body = new JSONObject()
-                    .set("markdown", new JSONObject()
+            body = body.set("markdown", new JSONObject()
                             .set("title", "宝宝，" + dingUtil.loveDay() + "天纪念哦！")
                             .set("text", String.format(
                                     "## 宝宝，%s天纪念哦！\n" +
