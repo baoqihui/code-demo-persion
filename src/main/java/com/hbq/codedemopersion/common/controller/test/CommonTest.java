@@ -1,6 +1,11 @@
 package com.hbq.codedemopersion.common.controller.test;
 
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
+import com.hbq.codedemopersion.common.model.HexoToken;
 import com.hbq.codedemopersion.util.manyTaskUtil.BatchAsyncUtil;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.search.SearchRequest;
@@ -17,9 +22,7 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,6 +42,15 @@ import java.util.concurrent.TimeUnit;
 public class CommonTest {
     private RestHighLevelClient restHighLevelClient;
     private BatchAsyncUtil asyncTest;
+
+    @ApiOperation(value = "转发token")
+    @PostMapping("/get_access_token")
+    public String getVerifyCode(@RequestBody HexoToken hexoToken) {
+        String url = "https://github.com/login/oauth/access_token";
+        JSONObject body = JSONUtil.parseObj(hexoToken);
+        String post = HttpUtil.post(url, body);
+        return post;
+    }
 
     /**
      * 测试异步请求

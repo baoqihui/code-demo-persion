@@ -3,6 +3,7 @@ package com.hbq.codedemopersion.common.controller;
 import cn.hutool.core.util.RandomUtil;
 import com.hbq.codedemopersion.common.model.RedisKey;
 import com.hbq.codedemopersion.common.model.Result;
+import com.hbq.codedemopersion.common.service.RedisService;
 import com.hbq.codedemopersion.config.anno.DB;
 import com.hbq.codedemopersion.redis_delay_queue.RedisDelayQueueUtil;
 import com.hbq.codedemopersion.util.RedisUtils;
@@ -34,6 +35,7 @@ public class RedisController {
     private RedisUtils redisUtils3;
 
     private RedisDelayQueueUtil redisDelayQueueUtil;
+    private RedisService redisService;
 
     @ApiOperation("测试redis多数据源配置")
     @GetMapping("/toManyDataSource")
@@ -56,5 +58,12 @@ public class RedisController {
     public Result toDelayQueue(String order) {
         redisDelayQueueUtil.addDelayQueue(ORDER_PAYMENT_TIMEOUT.getCode(), order, 10, TimeUnit.SECONDS);
         return Result.succeed("发送成功，延时10秒");
+    }
+
+    @ApiOperation("测试redis锁")
+    @GetMapping("/lock")
+    public Result lock(String order) {
+        redisService.doSomething(order);
+        return Result.succeed("两个线程分别请求锁操作");
     }
 }
