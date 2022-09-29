@@ -34,7 +34,7 @@ spring:
     host: 129.154.55.71 #ip
     port: 5672 #端口
     username: guest #用户名
-    password: guest #密码
+    password: uCykiLVbSHZVJ9 #密码
     listener:
       simple:
         acknowledge-mode: auto  # 消息确认方式，其有三种配置方式，分别是none、manual(手动ack) 和auto(自动ack) 默认auto
