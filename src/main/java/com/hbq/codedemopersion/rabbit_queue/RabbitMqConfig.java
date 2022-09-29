@@ -82,13 +82,13 @@ public class RabbitMqConfig {
         );
         //默认
         Arrays.stream(RabbitMqDefaultConstants.QueueEnum.values()).forEach(
-                rabbitMqQueueEnum -> {
-                    Queue queue = new Queue(rabbitMqQueueEnum.getCode(), true);
+                queueEnum -> {
+                    Queue queue = new Queue(queueEnum.getCode(), true);
                     rabbitAdmin.declareQueue(queue);
                     rabbitAdmin.declareBinding(
                             BindingBuilder.bind(queue)
                                     .to(defaultExchange())
-                                    .with(rabbitMqQueueEnum.getCode())
+                                    .with(queueEnum.getCode())
                     );
                 }
         );
