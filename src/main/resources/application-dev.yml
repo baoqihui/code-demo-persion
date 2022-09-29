@@ -29,6 +29,20 @@ spring:
     port: 6379 # Redis服务器连接端口
     password: HBQ521521cf* # Redis服务器连接密码（默认为空）
     timeout: 3000ms # 连接超时时间（毫秒）
+  rabbitmq:
+    host: 129.154.55.71 #ip
+    port: 5672 #端口
+    username: guest #用户名
+    password: uCykiLVbSHZVJ9 #密码
+    listener:
+      simple:
+        acknowledge-mode: auto  # 消息确认方式，其有三种配置方式，分别是none、manual(手动ack) 和auto(自动ack) 默认auto
+        retry: #设置重试机制
+          enabled: true  #重试开启
+          max-attempts: 5   #最大重试次数
+          initial-interval: 2000  # 重试时间间隔
+          max-interval: 20000 #最大时间间隔
+          multiplier: 2 #重试间隔倍数
   servlet:
     multipart:
       max-file-size: -1
