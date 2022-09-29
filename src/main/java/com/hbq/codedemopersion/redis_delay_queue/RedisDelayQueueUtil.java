@@ -32,11 +32,11 @@ public class RedisDelayQueueUtil {
      * @param <T>
      */
     public <T> void addDelayQueue(String queueCode, T value, long delay, TimeUnit timeUnit) {
+        log.info("(添加延时队列成功) 队列键：{}，队列值：{}，延迟时间：{}秒", queueCode, value, timeUnit.toSeconds(delay));
         try {
             RBlockingDeque<Object> blockingDeque = redissonClient.getBlockingDeque(queueCode);
             RDelayedQueue<Object> delayedQueue = redissonClient.getDelayedQueue(blockingDeque);
             delayedQueue.offer(value, delay, timeUnit);
-            log.info("(添加延时队列成功) 队列键：{}，队列值：{}，延迟时间：{}", queueCode, value, timeUnit.toSeconds(delay) + "秒");
         } catch (Exception e) {
             log.error("(添加延时队列失败) {}", e.getMessage());
             throw new RuntimeException("(添加延时队列失败)");
